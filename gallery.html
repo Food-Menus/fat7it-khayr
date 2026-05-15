@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>قصر الشوق </title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe.min.css">
+    <style>
+
+                /* تنسيق شاشة التحميل */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* خلفية سوداء فخمة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* للتأكد أنها فوق كل شيء */
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        /* حركة التكبير والتصغير (Pulse) */
+        .pulse-logo {
+            width: 200px; /* حجم اللوجو أثناء التحميل */
+            filter: drop-shadow(0 0 15px var(--led-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseAnimation {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+
+        /* حالة الإخفاء */
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+
+
+        :root {
+            --gold: #c5a059;
+            --led-gold: #ffcc00;
+            --led-blue: #00f3ff;
+            --dark-bg: #0a0a0a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* أضواء ليد علوية وسفلية */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            left: 0; width: 100%; height: 3px;
+            z-index: 1000;
+        }
+        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
+        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+
+        header {
+            padding: 20px 5%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            display: flex;
+            justify-content: center;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            transition: 0.3s;
+            background: rgba(197, 160, 89, 0.05);
+        }
+
+        .nav-link:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        .gallery-section {
+            flex: 1;
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-title h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: #aaa;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* شبكة الصور - تصميم فني */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-auto-rows: 200px;
+            grid-auto-flow: dense;
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.6s;
+            filter: grayscale(20%) brightness(0.9);
+        }
+
+        .gallery-item:hover {
+            transform: scale(0.98);
+            border-color: var(--led-gold);
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.2);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%) brightness(1.1);
+        }
+
+        /* أحجام متنوعة للشبكة */
+        .wide { grid-column: span 2; }
+        .tall { grid-row: span 2; }
+        .big { grid-column: span 2; grid-row: span 2; }
+
+        .back-home-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 900;
+            padding: 12px 30px;
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .back-home:hover {
+            background: rgba(197, 160, 89, 0.1);
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            color: var(--gold);
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 150px;
+            }
+            .big, .wide { grid-column: span 2; }
+        }
+    </style>
+</head>
+<body>
+<div id="loader">
+    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+</div>
+<header>
+    <nav>
+        <a href="index.html" class="nav-link">🏠 الرئيسية</a>
+        <a href="contact.html" class="nav-link">📞 تواصل معنا</a>
+    </nav>
+</header>
+
+<div class="gallery-section">
+    <div class="page-title">
+        <h1>📸 القعدة الحلوة</h1>
+        <p>فخامة التفاصيل في قصر الشوق</p>
+    </div>
+
+    <div class="gallery-grid" id="my-gallery">
+        <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMى (1).jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
+            <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMى (1).jpeg" alt="أجواء هادئة">
+        </a>
+
+        <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMلالا (1).jpeg" data-pswp-width="1200" data-pswp-height="1200" class="gallery-item big">
+            <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMلالا (1).jpeg" alt="ركن الـ VIP">
+        </a>
+
+        <a href="./photo/imges/ة.jpeg" data-pswp-width="1200" data-pswp-height="800" class="gallery-item wide">
+            <img src="./photo/imges/ة.jpeg" alt="إضاءة خارجية">
+        </a>
+
+        <a href="./photo/imges/ننن.jpeg" data-pswp-width="1000" data-pswp-height="1000" class="gallery-item">
+            <img src="./photo/imges/ننن.jpeg" alt="تفاصيل القصر">
+        </a>
+
+        <a href="./photo/imges/اا.jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
+            <img src="./photo/imges/اا.jpeg" alt="إطلالة خلابة">
+        </a>
+        <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.46 AM (1).jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
+            <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.46 AM (1).jpeg" alt="إطلالة خلابة">
+        </a>
+
+        <a href="./photo/imges/لالا.jpeg" data-pswp-width="1000" data-pswp-height="1000" class="gallery-item">
+            <img src="./photo/imges/لالا.jpeg" alt="ركن القهوة">
+        </a>
+
+        <a href="./photo/imges/11.jpeg" data-pswp-width="800" data-pswp-height="800" class="gallery-item wide">
+            <img src="./photo/imges/11.jpeg" alt="المشروبات الباردة">
+        </a>
+    </div>
+
+    <div class="back-home-container">
+        <a href="index.html" class="back-home">🔙 العودة للقائمة الرئيسية</a>
+    </div>
+</div>
+
+        <footer>
+          ®  Copyright © 2026 Techno Science 
+        </footer>
+
+<script type="module">
+        import PhotoSwipeLightbox from 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe-lightbox.esm.min.js';
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#my-gallery',
+            children: 'a',
+            pswpModule: () => import('https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe.esm.min.js')
+        });
+        lightbox.init();
+
+
+        window.addEventListener("load", function() {
+        const loader = document.getElementById("loader");
+        
+        // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
+        setTimeout(() => {
+            loader.classList.add("loader-hidden");
+        }, 2000);
+    });
+</script>
+
+</body>
+</html>

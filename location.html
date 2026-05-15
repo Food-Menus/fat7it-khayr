@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>قصر الشوق </title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+/* تنسيق شاشة التحميل */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* خلفية سوداء فخمة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* للتأكد أنها فوق كل شيء */
+    transition: opacity 0.5s ease-out, visibility 0.5s;
+}
+
+/* حركة التكبير والتصغير (Pulse) */
+.pulse-logo {
+    width: 200px; /* حجم اللوجو أثناء التحميل */
+    filter: drop-shadow(0 0 15px var(--led-gold));
+    animation: pulseAnimation 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseAnimation {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.7; }
+}
+
+/* حالة الإخفاء */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+        :root {
+            --gold: #c5a059;
+            --led-blue: #00f3ff;
+            --led-gold: #ffcc00;
+            --dark-card: rgba(0, 0, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* --- أضواء ليد محيطة --- */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            left: 0; width: 100%; height: 4px;
+            z-index: 100;
+            animation: ledPulse 3s infinite alternate;
+        }
+        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
+        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+
+        @keyframes ledPulse {
+            0% { opacity: 0.5; filter: brightness(0.8); }
+            100% { opacity: 1; filter: brightness(1.2); }
+        }
+
+        /* --- الخلفية المتحركة البانورامية --- */
+        .animated-bg {
+            position: fixed;
+            top: 0; left: -10%;
+            width: 120%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: panoramicMove 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-5%); }
+            100% { transform: translateX(5%); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            z-index: 1;
+            background: var(--dark-card);
+            border-radius: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--led-gold);
+        }
+
+        /* --- تقسيم المحتوى --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 20px;
+            border-right: 4px solid var(--led-gold);
+            transition: 0.3s;
+        }
+
+        .detail-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .detail-card i {
+            color: var(--led-gold);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .detail-card strong {
+            display: block;
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .detail-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        /* --- الخريطة --- */
+        .map-wrapper {
+            border-radius: 25px;
+            overflow: hidden;
+            border: 2px solid var(--led-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            height: 100%;
+            min-height: 350px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(0.2) contrast(1.1);
+        }
+
+        /* --- زر العودة --- */
+        .footer-nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border: 2px solid var(--led-blue);
+            background: rgba(0, 243, 255, 0.1);
+            transition: 0.4s;
+            box-shadow: 0 0 15px var(--led-blue);
+        }
+
+        .btn-back:hover {
+            background: var(--led-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--led-blue);
+            transform: translateY(-3px);
+        }
+
+        /* --- التجاوب مع الموبايل --- */
+        @media (max-width: 850px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .container { width: 95%; padding: 20px; }
+            .map-wrapper { min-height: 300px; }
+            header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div id="loader">
+    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+</div>
+    <div class="animated-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>📍 موقعنا ومواعيدنا</h1>
+        </header>
+
+        <div class="content-grid">
+            <div class="info-section">
+                <div class="detail-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <strong>العنوان</strong>
+                    <p> 46 شارع شبرا  -  شبرا مصر  - بجوار محطة مترو مسرة    </p>
+                </div>
+
+                <div class="detail-card">
+                    <i class="fas fa-clock"></i>
+                    <strong>ساعات العمل</strong>
+                    <p>يومياً من الساعة 06:00 صباحاً <br> حتى الساعة 11:00 ليلا</p>
+                </div>
+
+                <div class="detail-card">
+                    <i class="fas fa-star"></i>
+                    <strong>خدماتنا</strong>
+                    <p>   مشروبات مختلفه - ركن عائلات - شاشات عرض</p>
+                </div>
+            </div>
+
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d534.4431144086216!2d31.244821269152578!3d30.07109521249308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1458408a22caf021%3A0x9f8615742829bb77!2z2YLZh9mI2Kkg2YLYtdixINin2YTYtNmI2YI!5e1!3m2!1sen!2seg!4v1777007307746!5m2!1sen!2seg" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+       
+        <div class="footer-nav">
+            <a href="index.html" class="btn-back">🔙 العودة للساحة الرئيسية</a><br><br>
+        <footer>
+          ®  Copyright © 2026 Techno Science 
+        </footer>
+        </div>
+
+ 
+    </div>
+<script>
+    window.addEventListener("load", function() {
+    const loader = document.getElementById("loader");
+    
+    // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
+    setTimeout(() => {
+        loader.classList.add("loader-hidden");
+    }, 1000);
+});
+</script>
+</body>
+</html>

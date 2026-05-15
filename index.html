@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قصر الشوق </title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <style>
+
+                /* تنسيق شاشة التحميل */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; /* خلفية سوداء فخمة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* للتأكد أنها فوق كل شيء */
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        /* حركة التكبير والتصغير (Pulse) */
+        .pulse-logo {
+            width: 200px; /* حجم اللوجو أثناء التحميل */
+            filter: drop-shadow(0 0 15px var(--led-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseAnimation {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+
+        /* حالة الإخفاء */
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        :root {
+            --gold: #c5a059;
+            --led-blue: #00f3ff;
+            --led-gold: #ffcc00;
+            --led-red: #ff3131;
+            --shadow: rgba(0, 0, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* تنسيق اللوجو الجديد */
+        .logo-img {
+            max-width: 280px; /* يمكنك تكبير أو تصغير الحجم من هنا */
+            height: auto;
+            filter: drop-shadow(0 0 10px var(--led-gold)); /* تأثير توهج للوجو */
+            margin-bottom: 15px;
+        }
+
+        /* --- أضواء ليد محيطة بالشاشة --- */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            left: 0; width: 100%; height: 4px;
+            z-index: 100;
+            box-shadow: 0 0 15px var(--led-gold);
+            animation: ledPulse 3s infinite alternate;
+        }
+        body::before { top: 0; background: var(--led-gold); }
+        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+
+        @keyframes ledPulse {
+            0% { opacity: 0.5; filter: brightness(0.8); }
+            100% { opacity: 1; filter: brightness(1.2); }
+        }
+
+        /* --- الخلفية المتحركة يمين وشمال (Panoramic Move) --- */
+        .animated-bg {
+            position: fixed;
+            top: 0; left: -10%; 
+            width: 120%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: panoramicMove 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-5%); }
+            100% { transform: translateX(5%); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            z-index: 1;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--led-gold);
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #eee;
+            background: rgba(0,0,0,0.6);
+            display: inline-block;
+            padding: 5px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--led-blue);
+            box-shadow: 0 0 10px var(--led-blue);
+        }
+
+        /* شبكة الكروت */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .nav-card {
+            position: relative;
+            height: 180px;
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .card-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transition: 0.6s;
+        }
+
+        .img-gallery { background-image: linear-gradient(to top, #000, transparent), url('./photo/imges/WhatsApp\ Image\ 2026-04-24\ at\ 2.31.47\ AMلالا\ \(1\).jpeg'); }
+        .img-location { background-image: linear-gradient(to top, #000, transparent), url('./photo/imges/a382da3a-29c2-4e7f-8623-6f80daf8e934.webp'); }
+        .img-contact { background-image: linear-gradient(to top, #000, transparent), url('./photo/imges/images\ \(4\).jpg'); }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--led-blue);
+            box-shadow: 0 0 20px var(--led-blue);
+        }
+
+        .nav-card h3 { font-size: 1.3rem; color: #fff; text-shadow: 0 0 10px #000; }
+
+        .order-section {
+            grid-column: span 3;
+            margin-top: 20px;
+        }
+
+        .menu-main-btn {
+            background: linear-gradient(135deg, #111, #222);
+            border: 2px solid var(--led-gold);
+            border-radius: 50px;
+            padding: 25px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.4s;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+        }
+
+        .menu-main-btn:hover {
+            background: #000;
+            box-shadow: 0 0 30px var(--led-gold);
+            transform: scale(1.01);
+        }
+
+        .menu-main-btn h2 {
+            font-size: 2.2rem;
+            font-family: 'Aref Ruqaa', serif;
+            color: var(--led-gold);
+        }
+
+        .menu-sub-options {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .choice-btn {
+            padding: 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-hot {
+            background: rgba(255, 49, 49, 0.2);
+            border: 2px solid var(--led-red);
+            box-shadow: 0 0 10px var(--led-red);
+        }
+        .btn-hot:hover { background: var(--led-red); color: #000; box-shadow: 0 0 30px var(--led-red); }
+
+        .btn-cold {
+            background: rgba(0, 243, 255, 0.2);
+            border: 2px solid var(--led-blue);
+            box-shadow: 0 0 10px var(--led-blue);
+        }
+        .btn-cold:hover { background: var(--led-blue); color: #000; box-shadow: 0 0 30px var(--led-blue); }
+        /* زر ركن الشيشة */
+        .btn-shisha {
+            background: rgba(106, 104, 103, 0.2); /* لون برتقالي محمر دخاني */
+            border: 2px solid #c3bbbb;
+            box-shadow: 0 0 10px #676666;
+        }
+        .btn-shisha:hover { 
+            background: #ff5722; 
+            color: #000; 
+            box-shadow: 0 0 30px #ff5722; 
+        }
+        /* زر ركن الحلو */
+        .btn-dessert {
+            background: rgba(255, 64, 129, 0.2); /* لون وردي جذاب */
+            border: 2px solid #ff4081;
+            box-shadow: 0 0 10px #ff4081;
+        }
+        .btn-dessert:hover { 
+            background: #ff4081; 
+            color: #fff; 
+            box-shadow: 0 0 30px #ff4081; 
+        }
+
+        /* تنظيم الأزرار لتظهر بشكل متناسق (2 في كل صف على الموبايل و 4 على الكمبيوتر) */
+        .menu-sub-options {
+            display: none;
+            grid-template-columns: repeat(2, 1fr); /* صفين في الموبايل */
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @media (min-width: 851px) {
+            .menu-sub-options {
+                grid-template-columns: repeat(4, 1fr); /* 4 أزرار بجانب بعض في الشاشات الكبيرة */
+            }
+        }
+        /* تعديل عرض الشبكة لتستوعب 3 أزرار بدلاً من 2 */
+        @media (min-width: 851px) {
+            .menu-sub-options {
+                grid-template-columns: repeat(3, 1fr); /* تجعل الأزرار الثلاثة بجانب بعضها */
+            }
+        }
+        @media (max-width: 850px) {
+            body { overflow-y: auto; padding: 40px 0; }
+            .dashboard { grid-template-columns: 1fr; }
+            .order-section { grid-column: span 1; }
+            .menu-sub-options { grid-template-columns: 1fr; }
+            .container { width: 95%; padding: 15px; }
+            .logo-img { max-width: 200px; } /* حجم اللوجو في الموبايل */
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--gold);
+            font-size: 1rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+<div id="loader">
+    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+</div>
+
+    <div class="animated-bg"></div>
+
+    <div class="container">
+        <header>
+            <img src="./photo/logo1.png" alt="قصر الشوق" class="logo-img">
+            <br>
+            <p>أصالة المذاق.. في فخامة القصر</p>
+        </header>
+
+        <nav class="dashboard">
+            <a href="gallery.html" class="nav-card">
+                <div class="card-img img-gallery"></div>
+                <h3>📸 إتفرج علي القصر</h3>
+            </a>
+
+            <a href="location.html" class="nav-card">
+                <div class="card-img img-location"></div>
+                <h3>📍 زورونا في القصر</h3>
+            </a>
+
+            <a href="contact.html" class="nav-card">
+                <div class="card-img img-contact"></div>
+                <h3>📞 إتواصل معانا </h3>
+            </a>
+
+            <div class="order-section">
+                <div class="menu-main-btn" onclick="toggleMenu()" id="mainBtn">
+                    <h2>تشرب إيه ..؟  ☕</h2>
+                </div>
+
+                <div class="menu-sub-options" id="menuChoices">
+                    <a href="menu2.html" class="choice-btn btn-hot">
+                        <span>♨️</span> ركن السخن
+                    </a>
+                    <a href="menu1.html" class="choice-btn btn-cold">
+                        <span>❄️</span> ركن الساقع
+                    </a>
+                    <a href="menu4.html" class="choice-btn btn-dessert">
+                        <span>🍰</span> ركن الحلو
+                    </a>
+                    <a href="menu3.html" class="choice-btn btn-shisha">
+                        <span>💨</span> ركن الدخان
+                   </a>
+                </div>
+            </div>
+        </nav>
+
+        <footer>
+          ®  Copyright © 2026 Techno Science 
+        </footer>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menuChoices');
+            menu.style.display = (menu.style.display === 'grid') ? 'none' : 'grid';
+            if(menu.style.display === 'grid') {
+                setTimeout(() => {
+                    menu.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.order-section')) {
+                document.getElementById('menuChoices').style.display = 'none';
+            }
+        }
+
+
+        window.addEventListener("load", function() {
+            const loader = document.getElementById("loader");
+            
+            // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
+            setTimeout(() => {
+                loader.classList.add("loader-hidden");
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html>

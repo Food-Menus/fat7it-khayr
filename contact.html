@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>قصر الشوق </title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+        /* تنسيق شاشة التحميل */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* خلفية سوداء فخمة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* للتأكد أنها فوق كل شيء */
+    transition: opacity 0.5s ease-out, visibility 0.5s;
+}
+
+/* حركة التكبير والتصغير (Pulse) */
+.pulse-logo {
+    width: 200px; /* حجم اللوجو أثناء التحميل */
+    filter: drop-shadow(0 0 15px var(--led-gold));
+    animation: pulseAnimation 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseAnimation {
+    0% { transform: scale(0.8); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0.7; }
+}
+
+/* حالة الإخفاء */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+        :root {
+            --gold: #c5a059;
+            --led-blue: #00f3ff;
+            --led-gold: #ffcc00;
+            --led-green: #25d366;
+            --led-red: #ff3131;
+            --dark-card: rgba(0, 0, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        .social-item.phone {
+            cursor: pointer;
+            position: relative; /* عشان رسالة تم النسخ تظهر فوقه بالظبط */
+        }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        /* --- أضواء ليد محيطة (نفس التصميم الرئيسي) --- */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            left: 0; width: 100%; height: 4px;
+            z-index: 100;
+            animation: ledPulse 3s infinite alternate;
+        }
+        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
+        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+
+        @keyframes ledPulse {
+            0% { opacity: 0.5; filter: brightness(0.8); }
+            100% { opacity: 1; filter: brightness(1.2); }
+        }
+
+        /* --- الخلفية المتحركة البانورامية --- */
+        .animated-bg {
+            position: fixed;
+            top: 0; left: -10%;
+            width: 120%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: panoramicMove 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-5%); }
+            100% { transform: translateX(5%); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            z-index: 1;
+            background: var(--dark-card);
+            border-radius: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+
+        header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--led-gold);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #ddd;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.05);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        /* --- شبكة التواصل --- */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .social-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 25px;
+            text-decoration: none;
+            color: white;
+            transition: 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .social-item i { font-size: 2.8rem; transition: 0.3s; }
+        .social-item span { font-weight: bold; font-size: 1.1rem; color: var(--gold); }
+        .social-item small { color: #aaa; font-size: 0.85rem; }
+
+        /* هوفر مخصص لكل منصة */
+        .phone:hover { border-color: var(--led-blue); box-shadow: 0 0 20px var(--led-blue); background: rgba(0, 243, 255, 0.05); transform: translateY(-5px); }
+        .whatsapp:hover { border-color: var(--led-green); box-shadow: 0 0 20px var(--led-green); background: rgba(37, 211, 102, 0.05); transform: translateY(-5px); }
+        .facebook:hover { border-color: #1877f2; box-shadow: 0 0 20px #1877f2; background: rgba(24, 119, 242, 0.05); transform: translateY(-5px); }
+        .instagram:hover { border-color: #e4405f; box-shadow: 0 0 20px #e4405f; background: rgba(228, 64, 95, 0.05); transform: translateY(-5px); }
+
+        /* كارت الحجز المميز */
+        .reservation-box {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(0, 0, 0, 0.5));
+            border: 2px solid var(--led-gold);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+        }
+        .reservation-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px var(--led-gold);
+            background: rgba(197, 160, 89, 0.2);
+        }
+        .reservation-box i { color: var(--led-gold); text-shadow: 0 0 10px var(--led-gold); }
+
+        /* زر العودة */
+        .back-nav { margin-top: 40px; }
+        .btn-back {
+            display: inline-block;
+            padding: 12px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border: 2px solid var(--led-blue);
+            background: rgba(0, 243, 255, 0.1);
+            transition: 0.4s;
+            box-shadow: 0 0 15px var(--led-blue);
+        }
+        .btn-back:hover {
+            background: var(--led-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--led-blue);
+        }
+
+        @media (max-width: 600px) {
+            .social-grid { grid-template-columns: 1fr; }
+            .reservation-box { grid-column: span 1; }
+            .container { padding: 25px 15px; }
+        }
+    </style>
+</head>
+<body>
+<div id="loader">
+    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+</div>
+    <div class="animated-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>تواصل معنا</h1>
+            <p class="subtitle">نحن هنا لخدمتك.. في أي وقت</p>
+        </header>
+
+        <div class="social-grid">
+            <a href="javascript:void(0)" class="social-item phone" id="copyPhone" onclick="copyNumber('01111385521')">
+                <i class="fas fa-headset"></i>
+                <span> رقم الإدارة </span>
+                <span>01111385521</span>
+                <span id="copyMessage" style="display:none; font-size: 12px; color: var(--led-blue); position: absolute; top: -20px;">تم النسخ!</span>
+            </a>
+
+            <a href="https://wa.me/+201111385521?text=مرحب اريد التواصل مع إداره قصر الشوق " class="social-item whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>واتساب</span>
+                <small>استفسارات </small>
+            </a>
+
+            <a href="https://www.tiktok.com/@user78175562" class="social-item instagram">
+                <i class="fab fa-tiktok"></i>
+                <span>تيك توك</span>
+                <small> كل ما هو جديد </small>
+            </a>
+
+            <a href="https://wa.me/+201111385521?text=مرحبا اريد التواصل مع الإدارة لإعداد مناسبة   " class="social-item reservation-box">
+                <i class="fas fa-calendar-check"></i>
+                <span>احجز لمناسبتك الآن</span>
+                <small>للمناسبات، أعياد الميلاد، والجمعات العائلية</small>
+            </a>
+        </div>
+
+        <div class="back-nav">
+            <a href="index.html" class="btn-back">🔙 العودة للقائمة الرئيسية</a><br><br>
+        <footer>
+          ®  Copyright © 2026 Techno Science 
+        </footer>
+        </div>
+    </div>
+<script>
+    function copyNumber(number) {
+    // إنشاء عنصر مؤقت لنسخ النص
+    const tempInput = document.createElement("input");
+    tempInput.value = number;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    // إظهار رسالة "تم النسخ"
+    const msg = document.getElementById("copyMessage");
+    msg.style.display = "block";
+    
+    // إخفاء الرسالة بعد ثانيتين
+    setTimeout(() => {
+        msg.style.display = "none";
+    }, 2000);
+
+    // اختياري: إذا أردت أن يفتح سجل المكالمات بعد النسخ، فعل السطر القادم:
+    // window.location.href = "tel:" + number;
+}
+
+window.addEventListener("load", function() {
+    const loader = document.getElementById("loader");
+    
+    // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
+    setTimeout(() => {
+        loader.classList.add("loader-hidden");
+    }, 1000);
+});
+</script>
+</body>
+</html>
