@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قهوة فتحة خير</title>
-    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link rel="icon" href="./photo/logo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <!-- مكتبة الأيقونات لتشغيل رموز الأركان الجديدة -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -218,6 +218,7 @@
             overflow: hidden;
             box-shadow: 0 6px 15px rgba(0,0,0,0.5);
             transition: all 0.4s ease;
+            cursor: pointer;
         }
 
         .card-bg-img {
@@ -290,7 +291,7 @@
             line-height: 1.6;
         }
 
-        /* --- منيو المشروبات المنسدل المطور رأسيًا --- */
+        /* --- منيو المشروبات والاجتماعي المنسدل المطور رأسيًا --- */
         .menu-expand {
             display: none; /* يتم التحكم به عبر الـ JS ليصبح flex عند الفتح */
             flex-direction: column;
@@ -299,7 +300,7 @@
             padding: 5px;
         }
 
-        /* التنسيق المشترك الجديد للأزرار الثلاثة الفرعية */
+        /* التنسيق المشترك للأزرار الفرعية */
         .sub-option {
             opacity: 0;
             transform: translateY(15px);
@@ -317,9 +318,10 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            text-decoration: none;
         }
 
-        /* أنيميشن الظهور التتابعي تحت بعضهم */
+        /* أنيميشن الظهور التتابعي */
         .menu-show .sub-option {
             animation: fadeInUpCustom 0.5s forwards ease-out;
         }
@@ -371,6 +373,29 @@
             box-shadow: 0 4px 15px rgba(206, 212, 218, 0.25);
         }
 
+        /* خيارات الخريطة والتواصل الخاصة بكارت السوشيال ميديا الجديد */
+        .location-option {
+            color: var(--primary-gold);
+            border-right: 4px solid var(--primary-gold);
+        }
+        .location-option:hover {
+            background: rgba(255, 204, 0, 0.08);
+            border-color: var(--bright-gold);
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
+        }
+
+        .contact-option {
+            color: #a8e6cf;
+            border-right: 4px solid #10b981;
+        }
+        .contact-option:hover {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: #34d399;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+
         /* التجاوب للموبايل والأجهزة اللوحية */
         @media (max-width: 1000px) {
             body { padding: 4px; }
@@ -416,7 +441,7 @@
                         <a>🍹</a>
                         <a>🧋</a>
                     </div>
-                    <a href="contact.html" class="contact-btn"> اطلب دليفري الآن</a>
+                    <a href="contact.html" class="contact-btn">  تواصل معنا   </a>
                 </div>
             </header>
 
@@ -428,7 +453,7 @@
                         
                         <!-- كارت المنيو -->
                         <div>
-                            <a href="javascript:void(0)" class="service-card" onclick="toggleMenu()">
+                            <a href="javascript:void(0)" class="service-card" onclick="toggleMenu('drinkMenu')">
                                 <div class="card-bg-img" style="background-image: url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=800&auto=format&fit=crop');"></div>
                                 <div class="card-overlay"></div>
                                 
@@ -439,7 +464,7 @@
                                 <span class="card-icon">☕</span>
                             </a>
                             
-                            <!-- الأركان الثلاثة الجديدة بالأنيميشن المتتالي والألوان المميزة -->
+                            <!-- الأركان الثلاثة بالأنيميشن المتتالي والألوان المميزة -->
                             <div class="menu-expand" id="drinkMenu">
                                 <div class="sub-option hot-corner" onclick="location.href='menu2.html'">
                                     <i class="fas fa-mug-hot"></i> ☕ ركن السخـن وفناجين الخير
@@ -465,17 +490,29 @@
                             <span class="card-icon">📸</span>
                         </a>
 
-                        <!-- كارت التواصل والشبكات الاجتماعية -->
-                        <a href="location.html" class="service-card">
-                            <div class="card-bg-img" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop');"></div>
-                            <div class="card-overlay"></div>
-                            
-                            <div class="card-info-text">
-                                <h3>تابعنا على السوشيال ميديا</h3>
-                                <p>شاركنا لحظاتك الجميلة داخل المكان وتابع عروضنا المستمرة.</p>
+                        <!-- كارت التواصل والشبكات الاجتماعية المطور المنسدل -->
+                        <div>
+                            <a href="javascript:void(0)" class="service-card" onclick="toggleMenu('socialMenu')">
+                                <div class="card-bg-img" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop');"></div>
+                                <div class="card-overlay"></div>
+                                
+                                <div class="card-info-text">
+                                    <h3>دليلك لـ فتحة خير</h3>
+                                    <p>شاركنا لحظاتك الجميلة داخل المكان ونورنا علي القهوه.</p>
+                                </div>
+                                <span class="card-icon">📱</span>
+                            </a>
+
+                            <!-- قائمة خيارات الموقع والتواصل المنسدلة الجديدة -->
+                            <div class="menu-expand" id="socialMenu">
+                                <a href="location.html" class="sub-option location-option">
+                                    <i class="fas fa-map-marked-alt"></i> 📍 معرفة اللوكيشن  
+                                </a>
+                                <a href="contact.html" class="sub-option contact-option">
+                                    <i class="fas fa-phone-alt"></i> 📞 تواصل معنا واتصل بنا
+                                </a>
                             </div>
-                            <span class="card-icon">📱</span>
-                        </a>
+                        </div>
 
                     </div>
                 </section>
@@ -491,14 +528,14 @@
     </div>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('drinkMenu');
+        // دالة موحدة ذكية للتحكم في فتح وإغلاق أي قائمة منسدلة عبر الـ ID الخاص بها مع الحفاظ على الأنيميشن المتناسق
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
             if (menu.style.display === 'flex') {
                 menu.style.display = 'none';
                 menu.classList.remove('menu-show');
             } else {
                 menu.style.display = 'flex';
-                // لتفعيل الـ Trigger الخاص بأنيميشن التتابع المكتوب في الـ CSS
                 setTimeout(() => {
                     menu.classList.add('menu-show');
                 }, 10);
