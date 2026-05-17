@@ -4,24 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قصر الشوق - المنيو</title>
+    <title>قهوة فتحة خير - المنيو الرسمي</title>
     <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #c5a059;
-            --led-blue: #00f3ff;
-            --led-gold: #ffcc00;
+            /* نفس لوحة ألوان قهوة فتحة خير الأصيلة */
+            --primary-gold: #ffcc00; /* نحاسي دافئ كلاسيكي */
+            --bright-gold: #ffd000;  /* نحاسي داكن متناسق */
+            --brand-brown: #3d2516;  /* بني بلون البن المحوج */
+            --light-brown: #5c3a21;  /* بني خشبي دافئ */
+            --deep-black: #1a110b;   /* أسود دافئ بلمحة بنية للخلفية */
+            --card-bg: #2b1a10;      /* خلفية كروت المنيو */
+            
+            --led-glow-gold: rgba(198, 147, 75, 0.3);
             --led-red: #ff3131;
-            --shadow: rgba(0, 0, 0, 0.7);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: #000;
-            color: white;
+            background: var(--deep-black);
+            color: #f5f0eb;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -29,11 +34,11 @@
             position: relative;
         }
 
-        /* --- شاشة التحميل --- */
+        /* --- شاشة التحميل التراثية --- */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000;
+            background-color: var(--deep-black);
             display: flex; justify-content: center; align-items: center;
             z-index: 9999;
             transition: opacity 0.5s ease-out, visibility 0.5s;
@@ -41,7 +46,7 @@
 
         .pulse-logo {
             width: 200px;
-            filter: drop-shadow(0 0 15px var(--led-gold));
+            filter: drop-shadow(0 0 15px var(--primary-gold));
             animation: pulseAnimation 1.5s infinite ease-in-out;
         }
 
@@ -52,22 +57,23 @@
 
         .loader-hidden { opacity: 0; visibility: hidden; }
 
-        /* --- أضواء ليد --- */
+        /* --- أضواء ليد هادئة متناسقة مع البرواز الرئيسي --- */
         body::before, body::after {
             content: ''; position: fixed; left: 0; width: 100%; height: 4px; z-index: 100;
             animation: ledPulse 3s infinite alternate;
         }
-        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
-        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
 
         @keyframes ledPulse {
             0% { opacity: 0.5; }
             100% { opacity: 1; }
         }
 
+        /* الخلفية البانورامية المتحركة */
         .animated-bg {
             position: fixed; top: 0; left: -10%; width: 120%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), 
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
                         url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
             background-size: cover; background-position: center;
             z-index: -1; animation: panoramicMove 20s infinite alternate ease-in-out;
@@ -80,69 +86,94 @@
 
         .container {
             width: 90%; max-width: 900px; margin: 40px auto; z-index: 1;
-            padding: 20px; background: rgba(0, 0, 0, 0.6);
-            border-radius: 40px; backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 204, 0, 0.1);
+            padding: 30px; background: rgba(35, 22, 14, 0.75);
+            border-radius: 24px; backdrop-filter: blur(15px);
+            border: 1px solid rgba(198, 147, 75, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         header h1 {
             text-align: center; font-family: 'Aref Ruqaa', serif;
-            font-size: clamp(2.5rem, 8vw, 4rem); color: var(--gold);
-            text-shadow: 0 0 15px var(--led-gold); margin-bottom: 30px;
+            font-size: clamp(2.5rem, 8vw, 4rem); color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7); margin-bottom: 30px;
         }
 
-        /* --- ستايل الأقسام --- */
+        /* --- ستايل الأقسام والكروت --- */
         .category-section { margin-bottom: 50px; }
 
         .category-header {
-            text-align: center; margin-bottom: 20px;
+            text-align: center; margin-bottom: 25px;
         }
 
         .category-badge {
-            display: inline-block; padding: 8px 25px; border-radius: 50px;
-            border: 1px solid var(--led-blue); background: rgba(0, 243, 255, 0.1);
-            color: #fff; font-weight: bold; font-size: 1.2rem;
+            display: inline-block; padding: 10px 30px; border-radius: 50px;
+            border: 1px solid rgba(198, 147, 75, 0.4); background: rgba(61, 37, 22, 0.6);
+            color: #fff; font-weight: bold; font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .menu-card {
-            background: rgba(255, 255, 255, 0.03); border-radius: 25px;
-            border: 1px solid rgba(255, 204, 0, 0.2); overflow: hidden;
+            background: var(--card-bg); border-radius: 16px;
+            border: 1px solid rgba(198, 147, 75, 0.15); overflow: hidden;
             margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
 
-        .menu-image { width: 100%; height: 180px; overflow: hidden; }
-        .menu-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .menu-image { width: 100%; height: 200px; overflow: hidden; position: relative; }
+        .menu-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: transform 0.5s; }
+        .menu-card:hover .menu-image img { transform: scale(1.04); }
 
-        .price-list { padding: 10px 20px; }
+        /* إضافة تأثير ظل مدمج فوق الصورة ليظهر الكلام بشكل فخم */
+        .menu-image::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
+            background: linear-gradient(to top, var(--card-bg), transparent);
+        }
+
+        .price-list { padding: 10px 25px; }
         .price-item {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+            padding: 16px 0; border-bottom: 1px solid rgba(198, 147, 75, 0.15);
+            transition: background 0.3s;
         }
+        .price-item:last-child { border-bottom: none; }
+        .price-item:hover { background: rgba(255, 255, 255, 0.01); }
 
-        .item-name { font-size: 1.1rem; color: #eee; }
+        .item-name { font-size: 1.15rem; color: #e8ded1; font-weight: bold; }
         .item-price {
-            color: var(--led-gold); font-weight: 900;
-            background: rgba(197, 160, 89, 0.1); padding: 4px 12px;
-            border-radius: 15px; border: 1px solid var(--gold);
+            color: var(--deep-black); font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold)); 
+            padding: 5px 16px; border-radius: 6px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        .loader-msg { text-align: center; padding: 20px; color: var(--led-blue); font-size: 0.9rem; }
+        .loader-msg { text-align: center; padding: 25px; color: var(--primary-gold); font-size: 1rem; font-weight: bold; }
 
         .actions { text-align: center; margin: 40px 0; }
         .btn-back {
-            text-decoration: none; color: var(--led-gold); font-weight: bold;
-            padding: 12px 35px; border: 2px solid var(--led-gold);
-            border-radius: 50px; transition: 0.3s;
+            text-decoration: none; color: var(--primary-gold); font-weight: bold;
+            padding: 12px 40px; border: 2px solid var(--primary-gold);
+            border-radius: 6px; transition: 0.3s all ease;
+            background: transparent;
         }
-        .btn-back:hover { background: var(--led-gold); color: #000; box-shadow: 0 0 20px var(--led-gold); }
+        .btn-back:hover { 
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold)); 
+            color: var(--deep-black); 
+            box-shadow: 0 4px 15px var(--led-glow-gold);
+            transform: translateY(-2px);
+        }
 
-        footer { text-align: center; padding: 20px; color: var(--gold); font-size: 0.8rem; opacity: 0.6; }
+        footer { text-align: center; padding: 20px; color: var(--primary-gold); font-size: 0.85rem; opacity: 0.6; letter-spacing: 0.5px; }
 
-        @media (max-width: 600px) { .container { width: 95%; } }
+        @media (max-width: 600px) { 
+            .container { width: 95%; padding: 15px; } 
+            .price-list { padding: 10px 15px; }
+            .item-name { font-size: 1rem; }
+        }
     </style>
 </head>
 
 <body>
+    <!-- شاشة التحميل الذكية بروح القهوة القديمة -->
     <div id="loader">
         <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
     </div>
@@ -151,44 +182,47 @@
 
     <div class="container">
         <header>
-            <h1>قصر الشوق</h1>
+            <h1>#قهوة_فتحة_خير</h1>
         </header>
 
+        <!-- قسم المشروبات الساخنة (تم استبدال الغازية ليتناسب مع الكارت الأول لركن السخن) -->
         <section class="category-section">
             <div class="category-header">
-                <div class="category-badge">🥤 المشروبات الغازية</div>
+                <div class="category-badge">🍸 ركن الساقع </div>
             </div>
             <div class="menu-card">
                 <div class="menu-image">
-                    <img src="./photo/imges/111.jpg" alt="Soda">
+                    <img src="./photo/imges/111.jpg" alt="Hot Drinks">
                 </div>
-                <div id="loader-gas" class="loader-msg">⏳ جاري تحضير قائمة الغازيات...</div>
+                <div id="loader-gas" class="loader-msg">⏳ فناجين الخير على النار... دقيقة وتكون عندك</div>
                 <div id="list-gas" class="price-list"></div>
             </div>
         </section>
 
+        <!-- قسم المشروبات الباردة والنعنعة -->
         <section class="category-section">
             <div class="category-header">
-                <div class="category-badge">🍹 المشروبات الفريش</div>
+                <div class="category-badge">🍹 ركن الساقع والنعنعة الفريش</div>
             </div>
             <div class="menu-card">
                 <div class="menu-image">
                     <img src="./photo/imges/222.jpg" alt="Fresh Juice">
                 </div>
-                <div id="loader-fresh" class="loader-msg">⏳ جاري عصر الفواكه الطازجة...</div>
+                <div id="loader-fresh" class="loader-msg">⏳ بنعصر الفواكه الفريش... حاجة تروق دمك</div>
                 <div id="list-fresh" class="price-list"></div>
             </div>
         </section>
 
+        <!-- قسم الاسبيشيل أو ركن المزاج العالي -->
         <section class="category-section">
             <div class="category-header">
-                <div class="category-badge">✨ مشروبات اسبيشيل</div>
+                <div class="category-badge">✨ مشروبات اسبيشيل من وش السعد</div>
             </div>
             <div class="menu-card">
                 <div class="menu-image">
-                    <img src=".//photo/imges/333.jpg" alt="Special Drinks">
+                    <img src="./photo/imges/333.jpg" alt="Special Drinks">
                 </div>
-                <div id="loader-special" class="loader-msg">⏳ نجهز لك خلطتنا الخاصة...</div>
+                <div id="loader-special" class="loader-msg">⏳ نجهز لك خلطتنا الخاصة وسر الصنعة...</div>
                 <div id="list-special" class="price-list"></div>
             </div>
         </section>
@@ -203,14 +237,14 @@
     </footer>
 
     <script>
-        // روابط الـ Google Sheets (قم بتغييرها للروابط الصحيحة الخاصة بك)  
+        // 
         const sheetURLs = {
-            gas: 'https://docs.google.com/spreadsheets/d/1RJWbEDD99_BfSr8NbhCp-_pBoMgiBpCRr96Tx7jMV4A/export?format=csv',
-            fresh: 'https://docs.google.com/spreadsheets/d/1vgKzl8RaTEE9-NZPzri14Yh8GTJPJ_wwPBcbrHQtLYI/export?format=csv',
-            special: 'https://docs.google.com/spreadsheets/d/1Gm-rAZiAjxV_12yFlzEzRkPbcrd9RjpKKRssE4wmWXU/export?format=csv'
+            gas: 'https://docs.google.com/spreadsheets/d/1u0sezgoO17TmoSt-mTN_XVLx2i4DN0KS11LNkj-f2Wk/export?format=csv',
+            fresh: 'https://docs.google.com/spreadsheets/d/1tWoDuJthRzU3cOsgmw8_NS7EOHsEVrXz6bciUeLKw3w/export?format=csv',
+            special: 'https://docs.google.com/spreadsheets/d/1t4uU_okoLlizNUcwNUlMmpmq1jMipxSmeuC06hmxyN4/export?format=csv'
         };
 
-        // دالة موحدة لجلب البيانات
+        // دالة موحدة لترتيب وعرض البيانات بشكل يتماشى مع جلب أسعار المنيو
         async function fetchMenu(type, elementId, loaderId, emoji) {
             const listContainer = document.getElementById(elementId);
             const loaderMsg = document.getElementById(loaderId);
@@ -220,7 +254,7 @@
                 if (!response.ok) throw new Error();
                 
                 const data = await response.text();
-                const rows = data.split('\n').slice(1); // تخطي العنوان
+                const rows = data.split('\n').slice(1); // تخطي سطر العناوين
                 
                 let html = '';
                 rows.forEach(row => {
@@ -237,20 +271,19 @@
                 listContainer.innerHTML = html;
                 loaderMsg.style.display = 'none';
             } catch (error) {
-                loaderMsg.innerHTML = "⚠️ فشل تحميل هذا القسم";
+                loaderMsg.innerHTML = "⚠️ فشل تحميل هذا القسم حالياً";
                 loaderMsg.style.color = "var(--led-red)";
             }
         }
 
-        // تشغيل التحميل عند فتح الصفحة
+        // بدء التنفيذ والأنيميشن فور تحميل كامل عناصر ومحتويات الشاشة
         window.addEventListener("load", function() {
-            // إخفاء لودر الشاشة الرئيسي بعد ثانية
             setTimeout(() => {
                 document.getElementById("loader").classList.add("loader-hidden");
             }, 1000);
 
-            // استدعاء البيانات لكل قسم
-            fetchMenu('gas', 'list-gas', 'loader-gas', '🥤');
+            // استدعاء المنيو بالرموز التعبيرية المتناسقة مع الأقسام الفخمة
+            fetchMenu('gas', 'list-gas', 'loader-gas', '🍺');
             fetchMenu('fresh', 'list-fresh', 'loader-fresh', '🍹');
             fetchMenu('special', 'list-special', 'loader-special', '✨');
         });

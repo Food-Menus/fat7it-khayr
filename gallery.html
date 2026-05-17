@@ -3,54 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>قصر الشوق </title>
+    <title>قهوة فتحة خير - القعدة الحلوة</title>
     <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📸</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe.min.css">
     <style>
+        :root {
+            /* الألوان الدافئة الموحدة لقهوة فتحة خير */
+            --primary-gold: #ffcc00; /* نحاسي دافئ كلاسيكي */
+            --bright-gold: #ffd000;  /* نحاسي داكن متناسق */
+            --brand-brown: #3d2516;  /* بني بلون البن المحوج */
+            --light-brown: #5c3a21;  /* بني خشبي دافئ */
+            --deep-black: #1a110b;   /* أسود دافئ بلمحة بنية للخلفية */
+            --card-bg: rgba(43, 26, 16, 0.8); /* خلفية الكروت الشفافة */
+            --dark-card: rgba(26, 17, 11, 0.85); /* خلفية الحاوية الرئيسية */
+        }
 
-                /* تنسيق شاشة التحميل */
+        /* تنسيق شاشة التحميل */
         #loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000; /* خلفية سوداء فخمة */
+            background-color: var(--deep-black);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* للتأكد أنها فوق كل شيء */
+            z-index: 9999;
             transition: opacity 0.5s ease-out, visibility 0.5s;
         }
 
-        /* حركة التكبير والتصغير (Pulse) */
+        /* حركة اللوجو أثناء التحميل */
         .pulse-logo {
-            width: 200px; /* حجم اللوجو أثناء التحميل */
-            filter: drop-shadow(0 0 15px var(--led-gold));
+            width: 200px;
+            filter: drop-shadow(0 0 15px var(--primary-gold));
             animation: pulseAnimation 1.5s infinite ease-in-out;
         }
 
         @keyframes pulseAnimation {
             0% { transform: scale(0.8); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 1; }
             100% { transform: scale(0.8); opacity: 0.7; }
         }
 
-        /* حالة الإخفاء */
         .loader-hidden {
             opacity: 0;
             visibility: hidden;
-        }
-
-
-
-        :root {
-            --gold: #c5a059;
-            --led-gold: #ffcc00;
-            --led-blue: #00f3ff;
-            --dark-bg: #0a0a0a;
         }
 
         * {
@@ -61,31 +60,51 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--dark-bg);
-            color: white;
+            background-color: var(--deep-black);
+            color: #f5f0eb;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* أضواء ليد علوية وسفلية */
+        /* إطار ناعم علوي وسفلي متناسق مع الاستايل التراثي الهادئ */
         body::before, body::after {
             content: '';
             position: fixed;
-            left: 0; width: 100%; height: 3px;
+            left: 0; width: 100%; height: 2px;
             z-index: 1000;
         }
-        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
-        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+
+        /* --- الخلفية المتحركة البانورامية --- */
+        .animated-bg {
+            position: fixed;
+            top: 0; left: -10%;
+            width: 120%; height: 100%;
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: panoramicMove 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-3%); }
+            100% { transform: translateX(3%); }
+        }
 
         header {
             padding: 20px 5%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(26, 17, 11, 0.85);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            border-bottom: 1px solid rgba(255, 204, 0, 0.15);
             display: flex;
             justify-content: center;
+            z-index: 10;
         }
 
         nav {
@@ -94,49 +113,57 @@
         }
 
         .nav-link {
-            color: var(--gold);
+            color: var(--primary-gold);
             text-decoration: none;
             font-weight: 700;
-            padding: 8px 20px;
-            border: 1px solid var(--gold);
-            border-radius: 50px;
-            transition: 0.3s;
-            background: rgba(197, 160, 89, 0.05);
+            padding: 8px 22px;
+            border: 1px solid rgba(255, 204, 0, 0.4);
+            border-radius: 6px;
+            transition: 0.3s ease;
+            background: rgba(43, 26, 16, 0.3);
         }
 
         .nav-link:hover {
-            background: var(--gold);
-            color: #000;
-            box-shadow: 0 0 15px var(--gold);
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            color: #1a110b;
+            box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
+            border-color: transparent;
         }
 
         .gallery-section {
             flex: 1;
             padding: 40px 5%;
+            width: 92%;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 30px auto;
+            background: var(--dark-card);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            z-index: 1;
         }
 
         .page-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .page-title h1 {
             font-family: 'Aref Ruqaa', serif;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            color: var(--gold);
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
-            margin-bottom: 10px;
+            font-size: clamp(2.3rem, 7vw, 3.8rem);
+            color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 12px;
         }
 
         .page-title p {
-            color: #aaa;
+            color: #dcd1c4;
             font-size: 1.1rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
-        /* شبكة الصور - تصميم فني */
+        /* شبكة الصور الفنية المحسنة */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -148,8 +175,8 @@
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 15px;
-            border: 1px solid rgba(197, 160, 89, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 204, 0, 0.15);
             transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -157,128 +184,142 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: 0.6s;
-            filter: grayscale(20%) brightness(0.9);
+            transition: 0.6s ease;
+            filter: grayscale(10%) brightness(0.85);
         }
 
         .gallery-item:hover {
             transform: scale(0.98);
-            border-color: var(--led-gold);
-            box-shadow: 0 0 25px rgba(255, 204, 0, 0.2);
+            border-color: var(--primary-gold);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.15);
         }
 
         .gallery-item:hover img {
-            transform: scale(1.1);
-            filter: grayscale(0%) brightness(1.1);
+            transform: scale(1.08);
+            filter: grayscale(0%) brightness(1.05);
         }
 
-        /* أحجام متنوعة للشبكة */
+        /* أحجام الشبكة المتنوعة للعمق الفني */
         .wide { grid-column: span 2; }
         .tall { grid-row: span 2; }
         .big { grid-column: span 2; grid-row: span 2; }
 
         .back-home-container {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 45px;
         }
 
         .back-home {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: var(--gold);
+            color: #1a110b;
             text-decoration: none;
-            font-weight: 900;
-            padding: 12px 30px;
-            border: 1px solid var(--gold);
-            border-radius: 50px;
-            transition: 0.3s;
+            font-weight: 700;
+            padding: 12px 45px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            border-radius: 6px;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .back-home:hover {
-            background: rgba(197, 160, 89, 0.1);
-            letter-spacing: 1px;
-            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 204, 0, 0.2);
         }
 
         footer {
-            padding: 30px;
+            padding: 25px;
             text-align: center;
-            color: var(--gold);
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
-            font-size: 0.9rem;
-            opacity: 0.8;
+            color: #bfae9c;
+            border-top: 1px solid rgba(255, 204, 0, 0.15);
+            font-size: 0.85rem;
+            margin-top: auto;
+            background: rgba(26, 17, 11, 0.6);
+            z-index: 1;
         }
 
+        /* توافق تام مع الهواتف الذكية */
         @media (max-width: 768px) {
+            .gallery-section { width: 95%; padding: 25px 15px; border-radius: 12px; }
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
-                grid-auto-rows: 150px;
+                grid-auto-rows: 140px;
+                gap: 10px;
             }
             .big, .wide { grid-column: span 2; }
+            .back-home { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
-<div id="loader">
-    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
-</div>
-<header>
-    <nav>
-        <a href="index.html" class="nav-link">🏠 الرئيسية</a>
-        <a href="contact.html" class="nav-link">📞 تواصل معنا</a>
-    </nav>
-</header>
 
-<div class="gallery-section">
-    <div class="page-title">
-        <h1>📸 القعدة الحلوة</h1>
-        <p>فخامة التفاصيل في قصر الشوق</p>
+    <!-- شاشة التحميل المتناسقة -->
+    <div id="loader">
+        <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
     </div>
 
-    <div class="gallery-grid" id="my-gallery">
-        <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMى (1).jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
-            <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMى (1).jpeg" alt="أجواء هادئة">
-        </a>
+    <!-- الخلفية البانورامية -->
+    <div class="animated-bg"></div>
 
-        <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMلالا (1).jpeg" data-pswp-width="1200" data-pswp-height="1200" class="gallery-item big">
-            <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMلالا (1).jpeg" alt="ركن الـ VIP">
-        </a>
+    <header>
+        <nav>
+            <a href="index.html" class="nav-link">🏠 الرئيسية</a>
+            <a href="contact.html" class="nav-link">📞 تواصل معنا</a>
+        </nav>
+    </header>
 
-        <a href="./photo/imges/ة.jpeg" data-pswp-width="1200" data-pswp-height="800" class="gallery-item wide">
-            <img src="./photo/imges/ة.jpeg" alt="إضاءة خارجية">
-        </a>
+    <div class="gallery-section">
+        <div class="page-title">
+            <h1>📸 القعدة الحلوة</h1>
+            <p>فخامة التفاصيل الأصيلة في قهوة فتحة خير</p>
+        </div>
 
-        <a href="./photo/imges/ننن.jpeg" data-pswp-width="1000" data-pswp-height="1000" class="gallery-item">
-            <img src="./photo/imges/ننن.jpeg" alt="تفاصيل القصر">
-        </a>
+        <div class="gallery-grid" id="my-gallery">
+            <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMى (1).jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
+                <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMى (1).jpeg" alt="أجواء هادئة">
+            </a>
 
-        <a href="./photo/imges/اا.jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
-            <img src="./photo/imges/اا.jpeg" alt="إطلالة خلابة">
-        </a>
-        <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.46 AM (1).jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
-            <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.46 AM (1).jpeg" alt="إطلالة خلابة">
-        </a>
+            <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMلالا (1).jpeg" data-pswp-width="1200" data-pswp-height="1200" class="gallery-item big">
+                <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.47 AMلالا (1).jpeg" alt="ركن متميز">
+            </a>
 
-        <a href="./photo/imges/لالا.jpeg" data-pswp-width="1000" data-pswp-height="1000" class="gallery-item">
-            <img src="./photo/imges/لالا.jpeg" alt="ركن القهوة">
-        </a>
+            <a href="./photo/imges/ة.jpeg" data-pswp-width="1200" data-pswp-height="800" class="gallery-item wide">
+                <img src="./photo/imges/ة.jpeg" alt="إضاءة خارجية">
+            </a>
 
-        <a href="./photo/imges/11.jpeg" data-pswp-width="800" data-pswp-height="800" class="gallery-item wide">
-            <img src="./photo/imges/11.jpeg" alt="المشروبات الباردة">
-        </a>
+            <a href="./photo/imges/ننن.jpeg" data-pswp-width="1000" data-pswp-height="1000" class="gallery-item">
+                <img src="./photo/imges/ننن.jpeg" alt="تفاصيل المكان">
+            </a>
+
+            <a href="./photo/imges/اا.jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
+                <img src="./photo/imges/اا.jpeg" alt="جلسة مريحة">
+            </a>
+            
+            <a href="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.46 AM (1).jpeg" data-pswp-width="800" data-pswp-height="1200" class="gallery-item tall">
+                <img src="./photo/imges/WhatsApp Image 2026-04-24 at 2.31.46 AM (1).jpeg" alt="ركن رائع">
+            </a>
+
+            <a href="./photo/imges/لالا.jpeg" data-pswp-width="1000" data-pswp-height="1000" class="gallery-item">
+                <img src="./photo/imges/لالا.jpeg" alt="ركن القهوة">
+            </a>
+
+            <a href="./photo/imges/11.jpeg" data-pswp-width="800" data-pswp-height="800" class="gallery-item wide">
+                <img src="./photo/imges/11.jpeg" alt="المشروبات المميزة">
+            </a>
+        </div>
+
+        <div class="back-home-container">
+            <a href="index.html" class="back-home">🔙 العودة للقائمة الرئيسية</a>
+        </div>
     </div>
 
-    <div class="back-home-container">
-        <a href="index.html" class="back-home">🔙 العودة للقائمة الرئيسية</a>
-    </div>
-</div>
+    <footer>
+        ® Copyright © 2026 Techno Science 
+    </footer>
 
-        <footer>
-          ®  Copyright © 2026 Techno Science 
-        </footer>
-
-<script type="module">
+    <script type="module">
         import PhotoSwipeLightbox from 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe-lightbox.esm.min.js';
         const lightbox = new PhotoSwipeLightbox({
             gallery: '#my-gallery',
@@ -287,16 +328,13 @@
         });
         lightbox.init();
 
-
+        // التحكم في شاشة التحميل
         window.addEventListener("load", function() {
-        const loader = document.getElementById("loader");
-        
-        // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
-        setTimeout(() => {
-            loader.classList.add("loader-hidden");
-        }, 2000);
-    });
-</script>
-
+            const loader = document.getElementById("loader");
+            setTimeout(() => {
+                loader.classList.add("loader-hidden");
+            }, 1000); // دقيقة ومريحة للمستخدم
+        });
+    </script>
 </body>
 </html>

@@ -4,392 +4,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قصر الشوق </title>
-    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <title>قهوة فتحة خير - أصالة وضيافة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات لتشغيل رموز الأركان الجديدة -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-
-                /* تنسيق شاشة التحميل */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000; /* خلفية سوداء فخمة */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* للتأكد أنها فوق كل شيء */
-            transition: opacity 0.5s ease-out, visibility 0.5s;
-        }
-
-        /* حركة التكبير والتصغير (Pulse) */
-        .pulse-logo {
-            width: 200px; /* حجم اللوجو أثناء التحميل */
-            filter: drop-shadow(0 0 15px var(--led-gold));
-            animation: pulseAnimation 1.5s infinite ease-in-out;
-        }
-
-        @keyframes pulseAnimation {
-            0% { transform: scale(0.8); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.7; }
-        }
-
-        /* حالة الإخفاء */
-        .loader-hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
         :root {
-            --gold: #c5a059;
-            --led-blue: #00f3ff;
-            --led-gold: #ffcc00;
-            --led-red: #ff3131;
-            --shadow: rgba(0, 0, 0, 0.7);
+            /* ألوان دافئة مستوحاة من القهوة البلدي والخشب والنحاس */
+            --primary-gold: #ffcc00; /* نحاسي دافئ كلاسيكي */
+            --bright-gold: #ffd000;  /* نحاسي داكن متناسق */
+            --brand-brown: #3d2516;  /* بني بلون البن المحوج */
+            --light-brown: #5c3a21;  /* بني خشبي دافئ */
+            --deep-black: #1a110b;   /* أسود دافئ بلمحة بنية للخلفية */
+            --card-bg: #2b1a10;      /* خلفية الكروت */
+            
+            /* برواز شبه مخفي وهادئ جداً بدون تشتيت */
+            --led-bright-gold: rgba(198, 147, 75, 0.2);
+            --led-glow-gold: rgba(198, 147, 75, 0.05);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: #000;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
+            background-color: var(--deep-black);
+            color: #f5f0eb;
+            height: 100vh;
+            overflow: hidden;
+            padding: 6px; /* تقليل المسافة لأن البرواز أصبح مخفي تقريباً */
+        }
+
+        /* الحاوية الرئيسية: البرواز هنا أصبح رفيع وشبه مدمج في الشاشة */
+        .page-wrapper {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            height: calc(100vh - 12px);
+            border-radius: 12px;
+            overflow: hidden;
             position: relative;
+            
+            /* إطار ناعم وبسيط جداً بدون أنيميشن فاقع */
+            border: 1px solid rgb(255, 221, 0);
+            box-shadow: 0 0 10px var(--led-glow-gold);
         }
 
-        /* تنسيق اللوجو الجديد */
-        .logo-img {
-            max-width: 280px; /* يمكنك تكبير أو تصغير الحجم من هنا */
-            height: auto;
-            filter: drop-shadow(0 0 10px var(--led-gold)); /* تأثير توهج للوجو */
-            margin-bottom: 15px;
-        }
-
-        /* --- أضواء ليد محيطة بالشاشة --- */
-        body::before, body::after {
-            content: '';
-            position: fixed;
-            left: 0; width: 100%; height: 4px;
-            z-index: 100;
-            box-shadow: 0 0 15px var(--led-gold);
-            animation: ledPulse 3s infinite alternate;
-        }
-        body::before { top: 0; background: var(--led-gold); }
-        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
-
-        @keyframes ledPulse {
-            0% { opacity: 0.5; filter: brightness(0.8); }
-            100% { opacity: 1; filter: brightness(1.2); }
-        }
-
-        /* --- الخلفية المتحركة يمين وشمال (Panoramic Move) --- */
-        .animated-bg {
-            position: fixed;
-            top: 0; left: -10%; 
-            width: 120%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+        /* الجانب الأيمن: الهوية (ثابت) بروح تراثية */
+        .sidebar-brand {
+            background: linear-gradient(rgba(26, 17, 11, 0.9), rgba(61, 37, 22, 0.85)), 
                         url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
             background-size: cover;
             background-position: center;
-            z-index: -1;
-            animation: panoramicMove 15s infinite alternate ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+            border-left: 2px solid rgba(198, 147, 75, 0.3);
+            position: relative;
+            animation: fadeInLeft 1.2s ease-out;
+            z-index: 5;
         }
 
-        @keyframes panoramicMove {
-            0% { transform: translateX(-5%); }
-            100% { transform: translateX(5%); }
+        /* برواز داخلي هادئ جداً */
+        .sidebar-brand::after {
+            content: "";
+            position: absolute;
+            top: 20px; bottom: 20px; left: 20px; right: 20px;
+            border: 1px solid rgba(198, 147, 75, 0.15);
+            border-radius: 8px;
+            pointer-events: none;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            z-index: 1;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 40px;
+        .sidebar-brand h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 4.5rem;
+            color: var(--primary-gold);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .sidebar-brand p {
+            font-size: 1.25rem;
+            color: #dcd1c4;
+            line-height: 1.8;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* الجانب الأيسر التفاعلي بألوان دافئة ومريحة للعين */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: #23160e; /* خلفية ثابتة ومريحة بروح المقاهي التراثية */
+        }
+
+        /* الشريط العلوي */
+        .top-header-bar {
+            background: rgba(35, 22, 14, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--led-gold);
-            box-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+            padding: 18px 40px;
+            border-bottom: 1px solid rgba(198, 147, 75, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInDown 1s ease-out;
+            z-index: 4;
+            width: 99%;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+        .welcome-ticker {
+            font-size: 1.05rem;
+            color: #e8ded1;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        header p {
-            font-size: 1.1rem;
-            color: #eee;
-            background: rgba(0,0,0,0.6);
+        .welcome-ticker::before {
+            content: '';
             display: inline-block;
-            padding: 5px 25px;
-            border-radius: 50px;
-            border: 1px solid var(--led-blue);
-            box-shadow: 0 0 10px var(--led-blue);
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-gold);
+            border-radius: 50%;
         }
 
-        /* شبكة الكروت */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        .header-actions {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
 
-        .nav-card {
-            position: relative;
-            height: 180px;
-            border-radius: 20px;
-            overflow: hidden;
-            text-decoration: none;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.4s;
+        .social-icons {
             display: flex;
-            align-items: flex-end;
-            padding: 20px;
+            gap: 15px;
+            font-size: 1.2rem;
         }
 
-        .card-img {
+        .social-icons a {
+            color: #bfae9c;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-gold);
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            color: #1a110b;
+            padding: 10px 24px;
+            border-radius: 6px; /* حواف حادة نسبياً تناسب الأجواء الكلاسيكية */
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        /* منطقة المحتوى */
+        .scrollable-content {
+            padding: 40px 60px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #f5f0eb;
+            border-bottom: 2px solid var(--primary-gold);
+            display: inline-block;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* شبكة الكروت */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(198, 147, 75, 0.15);
+            aspect-ratio: 20 / 15; 
+            max-height: 340px; 
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+            transition: all 0.4s ease;
+        }
+
+        .card-bg-img {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-size: cover;
             background-position: center;
-            z-index: -1;
-            transition: 0.6s;
+            z-index: 1;
+            transition: transform 0.8s ease;
         }
 
-        .img-gallery { background-image: linear-gradient(to top, #000, transparent), url('./photo/imges/WhatsApp\ Image\ 2026-04-24\ at\ 2.31.47\ AMلالا\ \(1\).jpeg'); }
-        .img-location { background-image: linear-gradient(to top, #000, transparent), url('./photo/imges/a382da3a-29c2-4e7f-8623-6f80daf8e934.webp'); }
-        .img-contact { background-image: linear-gradient(to top, #000, transparent), url('./photo/imges/images\ \(4\).jpg'); }
-
-        .nav-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--led-blue);
-            box-shadow: 0 0 20px var(--led-blue);
+        .card-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, rgba(26, 17, 11, 0.95) 50%, rgba(61, 37, 22, 0.4));
+            z-index: 2;
+            transition: background 0.4s;
         }
 
-        .nav-card h3 { font-size: 1.3rem; color: #fff; text-shadow: 0 0 10px #000; }
-
-        .order-section {
-            grid-column: span 3;
-            margin-top: 20px;
+        .card-info-text {
+            position: relative;
+            z-index: 3;
+            max-width: 65%;
         }
 
-        .menu-main-btn {
-            background: linear-gradient(135deg, #111, #222);
-            border: 2px solid var(--led-gold);
-            border-radius: 50px;
-            padding: 25px;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.4s;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+        .card-icon {
+            font-size: 4rem;
+            position: relative;
+            z-index: 3;
+            transition: transform 0.4s ease;
+            filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.5));
         }
 
-        .menu-main-btn:hover {
-            background: #000;
-            box-shadow: 0 0 30px var(--led-gold);
-            transform: scale(1.01);
+        .service-card:hover {
+            transform: translateX(-6px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7); 
         }
 
-        .menu-main-btn h2 {
-            font-size: 2.2rem;
-            font-family: 'Aref Ruqaa', serif;
-            color: var(--led-gold);
+        .service-card:hover .card-bg-img {
+            transform: scale(1.05);
         }
 
-        .menu-sub-options {
-            display: none;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .service-card:hover .card-icon {
+            transform: scale(1.15);
+        }
+
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0; bottom: 0; right: 0; width: 4px;
+            background: var(--primary-gold);
+            transform: scaleY(0);
+            transition: 0.3s ease;
+            z-index: 4;
+        }
+
+        .service-card:hover::before { transform: scaleY(1); }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--primary-gold);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        }
+
+        .service-card p {
+            color: #dcd1c4;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- منيو المشروبات المنسدل المطور رأسيًا --- */
+        .menu-expand {
+            display: none; /* يتم التحكم به عبر الـ JS ليصبح flex عند الفتح */
+            flex-direction: column;
+            gap: 12px;
             margin-top: 15px;
-            animation: fadeIn 0.5s ease;
+            padding: 5px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .choice-btn {
-            padding: 20px;
-            border-radius: 15px;
-            text-decoration: none;
-            color: white;
-            font-size: 1.4rem;
+        /* التنسيق المشترك الجديد للأزرار الثلاثة الفرعية */
+        .sub-option {
+            opacity: 0;
+            transform: translateY(15px);
+            background: rgba(26, 17, 11, 0.65);
+            color: #f5f0eb;
+            padding: 18px 25px;
+            border-radius: 8px;
+            text-align: right;
             font-weight: bold;
-            text-align: center;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(198, 147, 75, 0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: 0.3s;
+            gap: 14px;
         }
 
-        .btn-hot {
-            background: rgba(255, 49, 49, 0.2);
-            border: 2px solid var(--led-red);
-            box-shadow: 0 0 10px var(--led-red);
-        }
-        .btn-hot:hover { background: var(--led-red); color: #000; box-shadow: 0 0 30px var(--led-red); }
-
-        .btn-cold {
-            background: rgba(0, 243, 255, 0.2);
-            border: 2px solid var(--led-blue);
-            box-shadow: 0 0 10px var(--led-blue);
-        }
-        .btn-cold:hover { background: var(--led-blue); color: #000; box-shadow: 0 0 30px var(--led-blue); }
-        /* زر ركن الشيشة */
-        .btn-shisha {
-            background: rgba(106, 104, 103, 0.2); /* لون برتقالي محمر دخاني */
-            border: 2px solid #c3bbbb;
-            box-shadow: 0 0 10px #676666;
-        }
-        .btn-shisha:hover { 
-            background: #ff5722; 
-            color: #000; 
-            box-shadow: 0 0 30px #ff5722; 
-        }
-        /* زر ركن الحلو */
-        .btn-dessert {
-            background: rgba(255, 64, 129, 0.2); /* لون وردي جذاب */
-            border: 2px solid #ff4081;
-            box-shadow: 0 0 10px #ff4081;
-        }
-        .btn-dessert:hover { 
-            background: #ff4081; 
-            color: #fff; 
-            box-shadow: 0 0 30px #ff4081; 
+        /* أنيميشن الظهور التتابعي تحت بعضهم */
+        .menu-show .sub-option {
+            animation: fadeInUpCustom 0.5s forwards ease-out;
         }
 
-        /* تنظيم الأزرار لتظهر بشكل متناسق (2 في كل صف على الموبايل و 4 على الكمبيوتر) */
-        .menu-sub-options {
-            display: none;
-            grid-template-columns: repeat(2, 1fr); /* صفين في الموبايل */
-            gap: 15px;
-            margin-top: 15px;
-        }
+        .sub-option:nth-child(1) { animation-delay: 0.1s; }
+        .sub-option:nth-child(2) { animation-delay: 0.25s; }
+        .sub-option:nth-child(3) { animation-delay: 0.4s; }
 
-        @media (min-width: 851px) {
-            .menu-sub-options {
-                grid-template-columns: repeat(4, 1fr); /* 4 أزرار بجانب بعض في الشاشات الكبيرة */
+        @keyframes fadeInUpCustom {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-        /* تعديل عرض الشبكة لتستوعب 3 أزرار بدلاً من 2 */
-        @media (min-width: 851px) {
-            .menu-sub-options {
-                grid-template-columns: repeat(3, 1fr); /* تجعل الأزرار الثلاثة بجانب بعضها */
-            }
+
+        /* 1. ركن السخن - أحمر فاتح كلاسيكي متوهج ناعم */
+        .hot-corner {
+            color: #ff6b6b;
+            border-right: 4px solid #ff4747;
         }
-        @media (max-width: 850px) {
-            body { overflow-y: auto; padding: 40px 0; }
-            .dashboard { grid-template-columns: 1fr; }
-            .order-section { grid-column: span 1; }
-            .menu-sub-options { grid-template-columns: 1fr; }
-            .container { width: 95%; padding: 15px; }
-            .logo-img { max-width: 200px; } /* حجم اللوجو في الموبايل */
+        .hot-corner:hover { 
+            background: rgba(255, 71, 71, 0.08); 
+            border-color: #ff6b6b;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25);
         }
 
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            color: var(--gold);
-            font-size: 1rem;
-            opacity: 0.6;
+        /* 2. ركن الساقع - أزرق فاتح منعش هادئ */
+        .cold-corner {
+            color: #4dadf7;
+            border-right: 4px solid #228be6;
+        }
+        .cold-corner:hover { 
+            background: rgba(34, 139, 230, 0.08); 
+            border-color: #4dadf7;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(77, 173, 247, 0.25);
+        }
+
+        /* 3. ركن الدخان - رمادي ضبابي فخم */
+        .smoke-corner {
+            color: #ced4da;
+            border-right: 4px solid #868e96;
+        }
+        .smoke-corner:hover { 
+            background: rgba(134, 142, 150, 0.12); 
+            border-color: #f1f3f5;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(206, 212, 218, 0.25);
+        }
+
+        /* التجاوب للموبايل والأجهزة اللوحية */
+        @media (max-width: 1000px) {
+            body { padding: 4px; }
+            .page-wrapper { grid-template-columns: 1fr; height: auto; min-height: calc(100vh - 8px); border-radius: 8px; }
+            .sidebar-brand { height: 40vh; padding: 30px; border-left: none; border-bottom: 2px solid rgba(198, 147, 75, 0.3); }
+            .sidebar-brand h1 { font-size: 3.5rem; }
+            .scrollable-content { padding: 30px; overflow-y: visible; height: auto; }
+            .top-header-bar { padding: 15px 20px; flex-direction: column; gap: 15px; text-align: center; }
+            .header-actions { flex-direction: column; gap: 10px; width: 100%; }
+            .contact-btn { width: 100%; text-align: center; }
+            .service-card { aspect-ratio: auto; height: 180px; padding: 0 25px; border-radius: 6px; }
+            .card-info-text { max-width: 80%; }
+            .card-icon { font-size: 3rem; }
+            body { overflow-y: auto; }
         }
     </style>
 </head>
 
 <body>
-<div id="loader">
-    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
-</div>
 
-    <div class="animated-bg"></div>
+    <div class="page-wrapper">
+        <!-- الجانب الأيمن: الهوية الثابتة -->
+        <aside class="sidebar-brand">
+            <h1>قهوة<br>فتحة خير</h1>
+            <p>مرحباً بك في وش السعد واللمة الحلوة.. <br> كل فنجان قهوة عندنا هو بداية لقصة نجاح و"فتحة خير" عليك.</p>
+        </aside>
 
-    <div class="container">
-        <header>
-            <img src="./photo/logo1.png" alt="قصر الشوق" class="logo-img">
-            <br>
-            <p>أصالة المذاق.. في فخامة القصر</p>
-        </header>
-
-        <nav class="dashboard">
-            <a href="gallery.html" class="nav-card">
-                <div class="card-img img-gallery"></div>
-                <h3>📸 إتفرج علي القصر</h3>
-            </a>
-
-            <a href="location.html" class="nav-card">
-                <div class="card-img img-location"></div>
-                <h3>📍 زورونا في القصر</h3>
-            </a>
-
-            <a href="contact.html" class="nav-card">
-                <div class="card-img img-contact"></div>
-                <h3>📞 إتواصل معانا </h3>
-            </a>
-
-            <div class="order-section">
-                <div class="menu-main-btn" onclick="toggleMenu()" id="mainBtn">
-                    <h2>تشرب إيه ..؟  ☕</h2>
+        <!-- الجانب الأيسر التفاعلي -->
+        <main class="main-content">
+            
+            <!-- الشريط العلوي -->
+            <header class="top-header-bar">
+                <div class="welcome-ticker">
+                    <span> منورنا دايماً يا غالي في قهوة فتحة خير!</span>
                 </div>
-
-                <div class="menu-sub-options" id="menuChoices">
-                    <a href="menu2.html" class="choice-btn btn-hot">
-                        <span>♨️</span> ركن السخن
-                    </a>
-                    <a href="menu1.html" class="choice-btn btn-cold">
-                        <span>❄️</span> ركن الساقع
-                    </a>
-                    <a href="menu4.html" class="choice-btn btn-dessert">
-                        <span>🍰</span> ركن الحلو
-                    </a>
-                    <a href="menu3.html" class="choice-btn btn-shisha">
-                        <span>💨</span> ركن الدخان
-                   </a>
+                <div class="header-actions">
+                    <div class="social-icons">
+                        <a>☕</a>
+                        <a>🍵</a>
+                        <a>🍸</a>
+                        <a>🍷</a>
+                        <a>🍺</a>
+                        <a>🍹</a>
+                        <a>🧋</a>
+                    </div>
+                    <a href="contact.html" class="contact-btn"> اطلب دليفري الآن</a>
                 </div>
+            </header>
+
+            <!-- منطقة المحتوى -->
+            <div class="scrollable-content">
+                <section>
+                    <h2 class="section-title">تحب إيه ؟</h2>
+                    <div class="feature-grid">
+                        
+                        <!-- كارت المنيو -->
+                        <div>
+                            <a href="javascript:void(0)" class="service-card" onclick="toggleMenu()">
+                                <div class="card-bg-img" style="background-image: url('https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=800&auto=format&fit=crop');"></div>
+                                <div class="card-overlay"></div>
+                                
+                                <div class="card-info-text">
+                                    <h3>قائمة المشروبات </h3>
+                                    <p>أجود توليفات البن والمشروبات المنعشة المعمولة خصيصاً ليك.</p>
+                                </div>
+                                <span class="card-icon">☕</span>
+                            </a>
+                            
+                            <!-- الأركان الثلاثة الجديدة بالأنيميشن المتتالي والألوان المميزة -->
+                            <div class="menu-expand" id="drinkMenu">
+                                <div class="sub-option hot-corner" onclick="location.href='menu2.html'">
+                                    <i class="fas fa-mug-hot"></i> ☕ ركن السخـن وفناجين الخير
+                                </div>
+                                <div class="sub-option cold-corner" onclick="location.href='menu1.html'">
+                                    <i class="fas fa-glass-martini-alt"></i> 🍹 ركن الساقع والنعنعة
+                                </div>
+                                <div class="sub-option smoke-corner" onclick="location.href='menu3.html'">
+                                    <i class="fas fa-smog"></i> 💨 ركن الدخان والمزاج العالي
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- كارت صور القهوة والمكان -->
+                        <a href="gallery.html" class="service-card">
+                            <div class="card-bg-img" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=800&auto=format&fit=crop');"></div>
+                            <div class="card-overlay"></div>
+                            
+                            <div class="card-info-text">
+                                <h3>إتفرج علي القعدة</h3>
+                                <p>شاهد تفاصيل المكان و الجو العام واللمة التي ترد الروح.</p>
+                            </div>
+                            <span class="card-icon">📸</span>
+                        </a>
+
+                        <!-- كارت التواصل والشبكات الاجتماعية -->
+                        <a href="location.html" class="service-card">
+                            <div class="card-bg-img" style="background-image: url('https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800&auto=format&fit=crop');"></div>
+                            <div class="card-overlay"></div>
+                            
+                            <div class="card-info-text">
+                                <h3>تابعنا على السوشيال ميديا</h3>
+                                <p>شاركنا لحظاتك الجميلة داخل المكان وتابع عروضنا المستمرة.</p>
+                            </div>
+                            <span class="card-icon">📱</span>
+                        </a>
+
+                    </div>
+                </section>
+
+                <section style="margin-top: 10px;">
+                    <h2 class="section-title">ليه "فتحة خير"؟</h2>
+                    <p style="color: #c4b5a3; line-height: 2; font-size: 1.1rem;">
+                        لأننا لا نقدم مجرد مشروب، نحن نصنع لك طاقة إيجابية تبدأ بها يومك. من أول فنجان قهوة مضبوط على الريحة وحتى قعدات المساء والسمر، كل تفصيلة في المكان معمولة علشان تبتسم وتتفائل بالخير.
+                    </p>
+                </section>
             </div>
-        </nav>
-
-        <footer>
-          ®  Copyright © 2026 Techno Science 
-        </footer>
+        </main>
     </div>
 
     <script>
         function toggleMenu() {
-            const menu = document.getElementById('menuChoices');
-            menu.style.display = (menu.style.display === 'grid') ? 'none' : 'grid';
-            if(menu.style.display === 'grid') {
+            const menu = document.getElementById('drinkMenu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+                menu.classList.remove('menu-show');
+            } else {
+                menu.style.display = 'flex';
+                // لتفعيل الـ Trigger الخاص بأنيميشن التتابع المكتوب في الـ CSS
                 setTimeout(() => {
-                    menu.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+                    menu.classList.add('menu-show');
+                }, 10);
             }
         }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.order-section')) {
-                document.getElementById('menuChoices').style.display = 'none';
-            }
-        }
-
-
-        window.addEventListener("load", function() {
-            const loader = document.getElementById("loader");
-            
-            // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
-            setTimeout(() => {
-                loader.classList.add("loader-hidden");
-            }, 2000);
-        });
     </script>
 
 </body>

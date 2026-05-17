@@ -4,49 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>قصر الشوق - جلسات القصر</title>
+    <title>قهوة فتحة خير - جلسات الخير والدخان</title>
     <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* تنسيق شاشة التحميل */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out, visibility 0.5s;
-        }
-
-        .pulse-logo {
-            width: 200px;
-            filter: drop-shadow(0 0 15px var(--led-gold));
-            animation: pulseAnimation 1.5s infinite ease-in-out;
-        }
-
-        @keyframes pulseAnimation {
-            0% { transform: scale(0.8); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.8); opacity: 0.7; }
-        }
-
-        .loader-hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
         :root {
-            --gold: #c5a059;
-            --led-blue: #00f3ff;
-            --led-gold: #ffcc00;
-            --wood-dark: #1a0f00;
+            /* هوية ألوان قهوة فتحة خير الثابتة */
+            --primary-gold: #ffcc00; /* نحاسي دافئ كلاسيكي */
+            --bright-gold: #ffd000;  /* ذهبي نحاسي ساطع */
+            --brand-brown: #3d2516;  /* بني بلون البن المحوج */
+            --deep-black: #1a110b;   /* أسود دافئ بلمحة بنية للخلفية */
+            --card-bg: #2b1a10;      /* خلفية كارت المنيو */
+            --led-glow-gold: rgba(198, 147, 75, 0.3);
             --led-red: #ff3131;
-            --smoke-gray: #8e8e8e; /* لون رمادي دخاني */
+            --smoke-gray: #a6968a;   /* رمادي دخاني دافئ متناسق مع البني */
         }
 
         * {
@@ -57,8 +28,8 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: #000;
-            color: white;
+            background: var(--deep-black);
+            color: #f5f0eb;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -66,26 +37,61 @@
             position: relative;
         }
 
+        /* --- تنسيق شاشة التحميل التراثية --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        /* حركة التكبير والتصغير النحاسية */
+        .pulse-logo {
+            width: 200px;
+            filter: drop-shadow(0 0 15px var(--primary-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseAnimation {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* --- أضواء ليد علوية وسفلية متناسقة --- */
         body::before, body::after {
             content: '';
             position: fixed;
-            left: 0; width: 100%; height: 3px;
+            left: 0; width: 100%; height: 4px;
             z-index: 100;
             animation: ledPulse 3s infinite alternate;
         }
-        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
-        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
 
         @keyframes ledPulse {
-            0% { opacity: 0.6; }
+            0% { opacity: 0.5; }
             100% { opacity: 1; }
         }
 
+        /* --- الخلفية البانورامية المتحركة المخصصة --- */
         .animated-bg {
             position: fixed;
             top: 0; left: -10%;
             width: 120%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)), 
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
                         url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
             background-size: cover;
             background-position: center;
@@ -98,17 +104,18 @@
             100% { transform: translateX(3%); }
         }
 
+        /* --- الحاوية الرئيسية الشفافة --- */
         .container {
             width: 90%;
             max-width: 900px;
             margin: 40px auto;
             z-index: 1;
             padding: 30px;
-            background: rgba(0, 0, 0, 0.75);
-            border-radius: 40px;
+            background: rgba(35, 22, 14, 0.75);
+            border-radius: 24px;
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(198, 147, 75, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             flex: 1;
         }
 
@@ -120,28 +127,29 @@
         header h1 {
             font-family: 'Aref Ruqaa', serif;
             font-size: clamp(2.5rem, 8vw, 3.5rem);
-            color: var(--gold);
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
-            margin-bottom: 10px;
+            color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 15px;
         }
 
         .category-badge {
             display: inline-block;
-            padding: 6px 20px;
+            padding: 8px 25px;
             border-radius: 50px;
-            border: 1px solid var(--smoke-gray);
-            background: rgba(142, 142, 142, 0.1);
+            border: 1px solid rgba(198, 147, 75, 0.4);
+            background: rgba(61, 37, 22, 0.6);
             color: #fff;
             font-weight: bold;
-            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
+        /* --- بطاقة القائمة الفخمة --- */
         .menu-card {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 30px;
-            border: 1px solid rgba(197, 160, 89, 0.2);
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid rgba(198, 147, 75, 0.15);
             overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
 
         .menu-image {
@@ -155,7 +163,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.6) contrast(1.2);
+            opacity: 0.75;
+            transition: transform 0.5s;
+        }
+        .menu-card:hover .menu-image img {
+            transform: scale(1.04);
         }
 
         .menu-image::after {
@@ -163,51 +175,55 @@
             position: absolute;
             bottom: 0; left: 0;
             width: 100%; height: 50%;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            background: linear-gradient(transparent, var(--card-bg));
         }
 
         .price-list {
-            padding: 20px 15px;
+            padding: 10px 25px;
         }
 
         .price-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 12px;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+            padding: 16px 12px;
+            border-bottom: 1px solid rgba(198, 147, 75, 0.15);
             transition: all 0.3s ease;
         }
 
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
         .price-item:hover {
-            background: rgba(197, 160, 89, 0.08);
-            padding-right: 20px;
+            background: rgba(255, 255, 255, 0.01);
+            padding-right: 18px;
         }
 
         .item-name {
             font-size: 1.15rem;
             font-weight: 700;
-            color: #fff;
+            color: #e8ded1;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
         .item-price {
-            color: var(--led-gold);
+            color: var(--deep-black);
             font-weight: 900;
-            font-size: 1.2rem;
-            background: rgba(26, 15, 0, 0.8);
-            padding: 6px 18px;
-            border-radius: 50px;
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            padding: 5px 16px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
+        /* --- اللودر الداخلي ورسائل الجلب --- */
         .loader {
             text-align: center;
             padding: 60px;
-            color: var(--led-gold);
+            color: var(--primary-gold);
             font-weight: bold;
             font-size: 1.2rem;
         }
@@ -219,60 +235,65 @@
 
         .btn-back {
             text-decoration: none;
-            color: #fff;
-            padding: 12px 35px;
-            border: 1px solid var(--gold);
-            border-radius: 50px;
-            background: rgba(197, 160, 89, 0.1);
-            transition: 0.3s;
+            color: var(--primary-gold);
+            padding: 12px 40px;
+            border: 2px solid var(--primary-gold);
+            border-radius: 6px;
+            background: transparent;
+            transition: 0.3s all ease;
             display: inline-block;
             font-weight: bold;
         }
 
         .btn-back:hover {
-            background: var(--gold);
-            color: #000;
-            box-shadow: 0 0 20px var(--gold);
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            color: var(--deep-black);
+            box-shadow: 0 4px 15px var(--led-glow-gold);
+            transform: translateY(-2px);
         }
 
         footer {
             text-align: center;
             padding: 25px;
-            color: var(--gold);
+            color: var(--primary-gold);
             font-size: 0.85rem;
-            opacity: 0.7;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 600px) {
             .container { width: 95%; padding: 20px 15px; }
             .item-name { font-size: 1rem; }
             .menu-image { height: 180px; }
+            .price-list { padding: 10px 15px; }
         }
     </style>
 </head>
 
 <body>
+    <!-- شاشة اللودر الافتتاحية التراثية عند الفتح -->
     <div id="loader">
         <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
     </div>
+    
     <div class="animated-bg"></div>
 
     <div class="container">
         <header>
-            <h1>قصر الشوق</h1>
-            <div class="category-badge">🛋️ قائمة الدخان </div>
+            <h1>#قهوة_فتحة_خير</h1>
+            <div class="category-badge">💨 جلسات الدخان والأجواء الرايقة</div>
         </header>
 
+        <!-- رسالة الانتظار الدافئة المتناسبة مع طابع المكان -->
         <div id="main-loader" class="loader">
-            ⏳ جاري تحضير الأجواء وتجهيز القعدة...
+            ⏳ جاري تجهيز حجر الخير وضبط الأجواء...
         </div>
 
         <div id="section-menu" class="menu-card" style="display: none;">
             <div class="menu-image">
-                <img src="./photo/imges/shisha.webp" alt="جلسات قصر الشوق للشيشة">
+                <img src="./photo/imges/shisha.webp" alt="جلسات وأجواء قهوة فتحة خير">
             </div>
-            <div id="list-items" class="price-list">
-                </div>
+            <div id="list-items" class="price-list"></div>
         </div>
 
         <div class="actions">
@@ -285,8 +306,8 @@
     </footer>
 
     <script>
-        // ملاحظة: تأكد من وضع رابط الـ Sheet الصحيح الخاص بقسم الدخان/الجلسات هنا https://docs.google.com/spreadsheets/d//edit?usp=drive_link
-        const sheetURL = 'https://docs.google.com/spreadsheets/d/1-wNb_EB_hf_eSYRWwvWGjW1aXzs7HLvNHZZ3EFsBUhA/export?format=csv';
+        // رابط الـ Sheet المباشر لبيانات الدخان والجلسات (بدون أي تعديل)https://docs.google.com/spreadsheets/d/1Fymx8NiBF0eWm7LFEsGW8OQ314Csp3ZzM7WRzcfrBTU/edit?usp=drive_link
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/1Fymx8NiBF0eWm7LFEsGW8OQ314Csp3ZzM7WRzcfrBTU/export?format=csv';
 
         async function loadMenu() {
             const loaderDiv = document.getElementById('main-loader');
@@ -322,10 +343,11 @@
                 loaderDiv.style.display = 'none';
                 
             } catch (error) {
-                loaderDiv.innerHTML = `<p style="color:#ff8866;">⚠️ حدث خطأ أثناء تحميل القائمة.</p>`;
+                loaderDiv.innerHTML = `<p style="color:var(--led-red);">⚠️ حدث خطأ أثناء تحميل القائمة، يرجى التحقق من اتصال الشبكة.</p>`;
             }
         }
 
+        // إخفاء اللودر الافتتاحي الرئيسي بسلاسة تامة بعد ثانية واحدة
         window.addEventListener("load", function() {
             const loader = document.getElementById("loader");
             setTimeout(() => {
@@ -333,6 +355,7 @@
             }, 1000);
         });
 
+        // تشغيل جلب البيانات فور تحميل الملف
         loadMenu();
     </script>
 </body>

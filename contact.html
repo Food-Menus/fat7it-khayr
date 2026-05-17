@@ -3,95 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>قصر الشوق </title>
+    <title>قهوة فتحة خير - تواصل معنا</title>
     <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            /* الألوان الدافئة الموحدة لقهوة فتحة خير */
+            --primary-gold: #ffcc00; /* نحاسي دافئ كلاسيكي */
+            --bright-gold: #ffd000;  /* نحاسي داكن متناسق */
+            --brand-brown: #3d2516;  /* بني بلون البن المحوج */
+            --light-brown: #5c3a21;  /* بني خشبي دافئ */
+            --deep-black: #1a110b;   /* أسود دافئ بلمحة بنية للخلفية */
+            --card-bg: rgba(43, 26, 16, 0.8); /* خلفية الكروت الشفافة */
+            --dark-card: rgba(26, 17, 11, 0.85); /* خلفية الحاوية الرئيسية */
+        }
 
         /* تنسيق شاشة التحميل */
-#loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000; /* خلفية سوداء فخمة */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* للتأكد أنها فوق كل شيء */
-    transition: opacity 0.5s ease-out, visibility 0.5s;
-}
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
 
-/* حركة التكبير والتصغير (Pulse) */
-.pulse-logo {
-    width: 200px; /* حجم اللوجو أثناء التحميل */
-    filter: drop-shadow(0 0 15px var(--led-gold));
-    animation: pulseAnimation 1.5s infinite ease-in-out;
-}
+        /* حركة التكبير والتصغير (Pulse) */
+        .pulse-logo {
+            width: 200px;
+            filter: drop-shadow(0 0 15px var(--primary-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
 
-@keyframes pulseAnimation {
-    0% { transform: scale(0.8); opacity: 0.7; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(0.8); opacity: 0.7; }
-}
+        @keyframes pulseAnimation {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
 
-/* حالة الإخفاء */
-.loader-hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-        :root {
-            --gold: #c5a059;
-            --led-blue: #00f3ff;
-            --led-gold: #ffcc00;
-            --led-green: #25d366;
-            --led-red: #ff3131;
-            --dark-card: rgba(0, 0, 0, 0.7);
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         .social-item.phone {
             cursor: pointer;
-            position: relative; /* عشان رسالة تم النسخ تظهر فوقه بالظبط */
+            position: relative;
         }
+
         body {
             font-family: 'Cairo', sans-serif;
-            background: #000;
-            color: white;
+            background: var(--deep-black);
+            color: #f5f0eb;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
             position: relative;
-            padding: 40px 0;
+            padding: 40px 6px;
         }
 
-        /* --- أضواء ليد محيطة (نفس التصميم الرئيسي) --- */
+        /* --- إطار ناعم علوي وسفلي متناسق مع الاستايل التراثي الهادئ --- */
         body::before, body::after {
             content: '';
             position: fixed;
-            left: 0; width: 100%; height: 4px;
+            left: 0; width: 100%; height: 2px;
             z-index: 100;
-            animation: ledPulse 3s infinite alternate;
         }
-        body::before { top: 0; background: var(--led-gold); box-shadow: 0 0 15px var(--led-gold); }
-        body::after { bottom: 0; background: var(--led-blue); box-shadow: 0 0 15px var(--led-blue); }
-
-        @keyframes ledPulse {
-            0% { opacity: 0.5; filter: brightness(0.8); }
-            100% { opacity: 1; filter: brightness(1.2); }
-        }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
 
         /* --- الخلفية المتحركة البانورامية --- */
         .animated-bg {
             position: fixed;
             top: 0; left: -10%;
             width: 120%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), 
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
                         url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
             background-size: cover;
             background-position: center;
@@ -100,42 +96,44 @@
         }
 
         @keyframes panoramicMove {
-            0% { transform: translateX(-5%); }
-            100% { transform: translateX(5%); }
+            0% { transform: translateX(-3%); }
+            100% { transform: translateX(3%); }
         }
 
+        /* الحاوية الرئيسية */
         .container {
-            width: 90%;
+            width: 92%;
             max-width: 800px;
             z-index: 1;
             background: var(--dark-card);
-            border-radius: 40px;
+            border-radius: 20px;
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 204, 0, 0.2);
+            border: 1px solid rgba(255, 204, 0, 0.15);
             padding: 40px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
         header h1 {
             font-family: 'Aref Ruqaa', serif;
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            color: var(--gold);
-            text-shadow: 0 0 15px var(--led-gold);
-            margin-bottom: 10px;
+            font-size: clamp(2.3rem, 7vw, 3.8rem);
+            color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 12px;
         }
 
         .subtitle {
-            color: #ddd;
+            color: #dcd1c4;
             margin-bottom: 40px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
             display: inline-block;
-            padding: 5px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 6px 24px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            font-size: 0.95rem;
         }
 
-        /* --- شبكة التواصل --- */
+        /* --- شبكة أزرار التواصل --- */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -143,74 +141,92 @@
         }
 
         .social-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
             padding: 25px;
             text-decoration: none;
-            color: white;
-            transition: 0.4s ease;
+            color: #f5f0eb;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
         }
 
-        .social-item i { font-size: 2.8rem; transition: 0.3s; }
-        .social-item span { font-weight: bold; font-size: 1.1rem; color: var(--gold); }
-        .social-item small { color: #aaa; font-size: 0.85rem; }
+        .social-item i { font-size: 2.5rem; color: var(--primary-gold); transition: 0.3s; }
+        .social-item span { font-weight: bold; font-size: 1.15rem; color: #f5f0eb; }
+        .social-item .phone-number { color: var(--primary-gold); font-family: sans-serif; font-size: 1.1rem; }
+        .social-item small { color: #bfae9c; font-size: 0.85rem; }
 
-        /* هوفر مخصص لكل منصة */
-        .phone:hover { border-color: var(--led-blue); box-shadow: 0 0 20px var(--led-blue); background: rgba(0, 243, 255, 0.05); transform: translateY(-5px); }
-        .whatsapp:hover { border-color: var(--led-green); box-shadow: 0 0 20px var(--led-green); background: rgba(37, 211, 102, 0.05); transform: translateY(-5px); }
-        .facebook:hover { border-color: #1877f2; box-shadow: 0 0 20px #1877f2; background: rgba(24, 119, 242, 0.05); transform: translateY(-5px); }
-        .instagram:hover { border-color: #e4405f; box-shadow: 0 0 20px #e4405f; background: rgba(228, 64, 95, 0.05); transform: translateY(-5px); }
+        /* تأثيرات حركة فاخرة ومتناسقة عند التمرير بالماوس */
+        .social-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-gold);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.1);
+        }
 
-        /* كارت الحجز المميز */
+        /* تخصيص أيقونة الواتساب والتيك توك لتناسب الهوية بسلاسة */
+        .social-item.whatsapp:hover i { color: #25d366; filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.4)); }
+        .social-item.instagram:hover i { color: #ff0050; filter: drop-shadow(0 0 8px rgba(255, 0, 80, 0.4)); }
+
+        /* كارت الحجز المتميز */
         .reservation-box {
             grid-column: span 2;
-            background: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(0, 0, 0, 0.5));
-            border: 2px solid var(--led-gold);
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+            background: linear-gradient(135deg, rgba(61, 37, 22, 0.4), rgba(26, 17, 11, 0.8));
+            border: 1px solid rgba(255, 204, 0, 0.3);
         }
         .reservation-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 30px var(--led-gold);
-            background: rgba(197, 160, 89, 0.2);
+            background: linear-gradient(135deg, rgba(61, 37, 22, 0.6), rgba(26, 17, 11, 0.9));
+            border-color: var(--primary-gold);
+            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.15);
         }
-        .reservation-box i { color: var(--led-gold); text-shadow: 0 0 10px var(--led-gold); }
+        .reservation-box i { color: var(--primary-gold); text-shadow: 0 0 10px rgba(255, 204, 0, 0.4); }
 
-        /* زر العودة */
+        /* زر العودة للرئيسية */
         .back-nav { margin-top: 40px; }
         .btn-back {
             display: inline-block;
-            padding: 12px 35px;
-            border-radius: 50px;
+            padding: 12px 45px;
+            border-radius: 6px;
             text-decoration: none;
-            color: white;
+            color: #1a110b;
             font-weight: bold;
-            border: 2px solid var(--led-blue);
-            background: rgba(0, 243, 255, 0.1);
-            transition: 0.4s;
-            box-shadow: 0 0 15px var(--led-blue);
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
         .btn-back:hover {
-            background: var(--led-blue);
-            color: #000;
-            box-shadow: 0 0 30px var(--led-blue);
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 204, 0, 0.2);
         }
 
+        footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #bfae9c;
+            letter-spacing: 0.5px;
+        }
+
+        /* التجاوب مع الموبايل */
         @media (max-width: 600px) {
-            .social-grid { grid-template-columns: 1fr; }
+            .social-grid { grid-template-columns: 1fr; gap: 15px; }
             .reservation-box { grid-column: span 1; }
-            .container { padding: 25px 15px; }
+            .container { width: 95%; padding: 30px 15px; border-radius: 12px; }
+            .btn-back { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
-<div id="loader">
-    <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
-</div>
+
+    <!-- شاشة التحميل -->
+    <div id="loader">
+        <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+    </div>
+
+    <!-- الخلفية البانورامية -->
     <div class="animated-bg"></div>
 
     <div class="container">
@@ -220,70 +236,73 @@
         </header>
 
         <div class="social-grid">
+            <!-- زر رقم الإدارة والنسخ -->
             <a href="javascript:void(0)" class="social-item phone" id="copyPhone" onclick="copyNumber('01111385521')">
                 <i class="fas fa-headset"></i>
-                <span> رقم الإدارة </span>
-                <span>01111385521</span>
-                <span id="copyMessage" style="display:none; font-size: 12px; color: var(--led-blue); position: absolute; top: -20px;">تم النسخ!</span>
+                <span>رقم الإدارة</span>
+                <span class="phone-number">01111385521</span>
+                <span id="copyMessage" style="display:none; font-size: 13px; color: var(--primary-gold); position: absolute; top: -22px; font-weight: bold; background: rgba(26,17,11,0.9); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--primary-gold);">تم النسخ الفوري!</span>
             </a>
 
-            <a href="https://wa.me/+201111385521?text=مرحب اريد التواصل مع إداره قصر الشوق " class="social-item whatsapp">
+            <!-- زر واتساب للاستفسارات -->
+            <a href="https://wa.me/+201111385521?text=مرحباً، أود التواصل مع إدارة قهوة فتحة خير" class="social-item whatsapp">
                 <i class="fab fa-whatsapp"></i>
-                <span>واتساب</span>
-                <small>استفسارات </small>
+                <span>واتساب الإدارة</span>
+                <small>للاستفسارات والطلبات</small>
             </a>
 
+            <!-- زر تيك توك -->
             <a href="https://www.tiktok.com/@user78175562" class="social-item instagram">
                 <i class="fab fa-tiktok"></i>
                 <span>تيك توك</span>
-                <small> كل ما هو جديد </small>
+                <small>تابع كل ما هو جديد لدينا</small>
             </a>
 
-            <a href="https://wa.me/+201111385521?text=مرحبا اريد التواصل مع الإدارة لإعداد مناسبة   " class="social-item reservation-box">
+            <!-- زر الحجز الفاخر -->
+            <a href="https://wa.me/+201111385521?text=مرحباً، أود التواصل مع الإدارة لتجهيز مناسبة في قهوة فتحة خير" class="social-item reservation-box">
                 <i class="fas fa-calendar-check"></i>
                 <span>احجز لمناسبتك الآن</span>
-                <small>للمناسبات، أعياد الميلاد، والجمعات العائلية</small>
+                <small>للمناسبات، أعياد الميلاد، والجمعات العائلية السعيدة</small>
             </a>
         </div>
 
+        <!-- أزرار التنقل والحقوق -->
         <div class="back-nav">
-            <a href="index.html" class="btn-back">🔙 العودة للقائمة الرئيسية</a><br><br>
-        <footer>
-          ®  Copyright © 2026 Techno Science 
-        </footer>
+            <a href="index.html" class="btn-back">🔙 العودة للقائمة الرئيسية</a>
+            <br>
+            <footer>
+                ® Copyright © 2026 Techno Science 
+            </footer>
         </div>
     </div>
+
 <script>
+    // دالة نسخ الرقم الميكانيكية السريعة
     function copyNumber(number) {
-    // إنشاء عنصر مؤقت لنسخ النص
-    const tempInput = document.createElement("input");
-    tempInput.value = number;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
+        const tempInput = document.createElement("input");
+        tempInput.value = number;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
 
-    // إظهار رسالة "تم النسخ"
-    const msg = document.getElementById("copyMessage");
-    msg.style.display = "block";
+        const msg = document.getElementById("copyMessage");
+        msg.style.display = "block";
+        
+        setTimeout(() => {
+            msg.style.display = "none";
+        }, 2000);
+    }
+
+    // إخفاء شاشة التحميل بمجرد اكتمال عناصر الصفحة
+    window.addEventListener("load", function() {
+        const loader = document.getElementById("loader");
+        setTimeout(() => {
+            loader.classList.add("loader-hidden");
+        }, 1000);
+    });
     
-    // إخفاء الرسالة بعد ثانيتين
-    setTimeout(() => {
-        msg.style.display = "none";
-    }, 2000);
-
-    // اختياري: إذا أردت أن يفتح سجل المكالمات بعد النسخ، فعل السطر القادم:
-    // window.location.href = "tel:" + number;
-}
-
-window.addEventListener("load", function() {
-    const loader = document.getElementById("loader");
-    
-    // الانتظار لمدة 3 ثوانٍ قبل الإخفاء
-    setTimeout(() => {
-        loader.classList.add("loader-hidden");
-    }, 1000);
-});
 </script>
+
 </body>
 </html>
