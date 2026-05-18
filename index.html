@@ -39,7 +39,7 @@
             padding: 6px; /* تقليل المسافة لأن البرواز أصبح مخفي تقريباً */
         }
 
-        /* الحاوية الرئيسية: البرواز هنا أصبح رفيع وشبه مدمج في الشاشة */
+        /* الحاوية الرئيسية: متوافقة تماماً مع شاشات الكمبيوتر الكبيرة */
         .page-wrapper {
             display: grid;
             grid-template-columns: 450px 1fr;
@@ -53,20 +53,27 @@
             box-shadow: 0 0 10px var(--led-glow-gold);
         }
 
-        /* الجانب الأيمن: الهوية (ثابت) بروح تراثية */
+        /* الجانب الأيمن: الهوية (ثابت للشاشات الكبيرة) بروح تراثية مع أنيميشن حركة الخلفية يمين ويسار بدون تكرار أو مط */
         .sidebar-brand {
             background: linear-gradient(rgba(26, 17, 11, 0.9), rgba(61, 37, 22, 0.85)), 
                         url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
-            background-size: cover;
-            background-position: center;
+            background-size: 140% 100%; /* حجم متناسق للكمبيوتر يسمح بالحركة الأفقية */
+            background-repeat: no-repeat;
+            background-position: 0% center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 50px;
             border-left: 2px solid rgba(198, 147, 75, 0.3);
             position: relative;
-            animation: fadeInLeft 1.2s ease-out;
             z-index: 5;
+            animation: moveBackgroundDesktop 25s ease-in-out infinite alternate;
+        }
+
+        /* أنيميشن حركة الخلفية على الكمبيوتر (يمين وشمال) */
+        @keyframes moveBackgroundDesktop {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
         }
 
         /* برواز داخلي هادئ جداً */
@@ -101,6 +108,7 @@
             flex-direction: column;
             height: 100%;
             background: #23160e; /* خلفية ثابتة ومريحة بروح المقاهي التراثية */
+            overflow: hidden;
         }
 
         /* الشريط العلوي */
@@ -113,9 +121,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            animation: fadeInDown 1s ease-out;
             z-index: 4;
-            width: 99%;
+            width: 100%;
         }
 
         .welcome-ticker {
@@ -162,7 +169,7 @@
             background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
             color: #1a110b;
             padding: 10px 24px;
-            border-radius: 6px; /* حواف حادة نسبياً تناسب الأجواء الكلاسيكية */
+            border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
             font-size: 0.95rem;
@@ -199,7 +206,6 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 25px;
-            animation: fadeInUp 1s ease-out;
         }
 
         .service-card {
@@ -293,14 +299,13 @@
 
         /* --- منيو المشروبات والاجتماعي المنسدل المطور رأسيًا --- */
         .menu-expand {
-            display: none; /* يتم التحكم به عبر الـ JS ليصبح flex عند الفتح */
+            display: none;
             flex-direction: column;
             gap: 12px;
             margin-top: 15px;
             padding: 5px;
         }
 
-        /* التنسيق المشترك للأزرار الفرعية */
         .sub-option {
             opacity: 0;
             transform: translateY(15px);
@@ -321,7 +326,6 @@
             text-decoration: none;
         }
 
-        /* أنيميشن الظهور التتابعي */
         .menu-show .sub-option {
             animation: fadeInUpCustom 0.5s forwards ease-out;
         }
@@ -337,65 +341,22 @@
             }
         }
 
-        /* 1. ركن السخن - أحمر فاتح كلاسيكي متوهج ناعم */
-        .hot-corner {
-            color: #ff6b6b;
-            border-right: 4px solid #ff4747;
-        }
-        .hot-corner:hover { 
-            background: rgba(255, 71, 71, 0.08); 
-            border-color: #ff6b6b;
-            transform: translateX(-5px);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25);
-        }
+        .hot-corner { color: #ff6b6b; border-right: 4px solid #ff4747; }
+        .hot-corner:hover { background: rgba(255, 71, 71, 0.08); border-color: #ff6b6b; transform: translateX(-5px); box-shadow: 0 4px 15px rgba(255, 107, 107, 0.25); }
 
-        /* 2. ركن الساقع - أزرق فاتح منعش هادئ */
-        .cold-corner {
-            color: #4dadf7;
-            border-right: 4px solid #228be6;
-        }
-        .cold-corner:hover { 
-            background: rgba(34, 139, 230, 0.08); 
-            border-color: #4dadf7;
-            transform: translateX(-5px);
-            box-shadow: 0 4px 15px rgba(77, 173, 247, 0.25);
-        }
+        .cold-corner { color: #4dadf7; border-right: 4px solid #228be6; }
+        .cold-corner:hover { background: rgba(34, 139, 230, 0.08); border-color: #4dadf7; transform: translateX(-5px); box-shadow: 0 4px 15px rgba(77, 173, 247, 0.25); }
 
-        /* 3. ركن الدخان - رمادي ضبابي فخم */
-        .smoke-corner {
-            color: #ced4da;
-            border-right: 4px solid #868e96;
-        }
-        .smoke-corner:hover { 
-            background: rgba(134, 142, 150, 0.12); 
-            border-color: #f1f3f5;
-            transform: translateX(-5px);
-            box-shadow: 0 4px 15px rgba(206, 212, 218, 0.25);
-        }
+        .smoke-corner { color: #ced4da; border-right: 4px solid #868e96; }
+        .smoke-corner:hover { background: rgba(134, 142, 150, 0.12); border-color: #f1f3f5; transform: translateX(-5px); box-shadow: 0 4px 15px rgba(206, 212, 218, 0.25); }
 
-        /* خيارات الخريطة والتواصل الخاصة بكارت السوشيال ميديا الجديد */
-        .location-option {
-            color: var(--primary-gold);
-            border-right: 4px solid var(--primary-gold);
-        }
-        .location-option:hover {
-            background: rgba(255, 204, 0, 0.08);
-            border-color: var(--bright-gold);
-            transform: translateX(-5px);
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
-        }
+        .location-option { color: var(--primary-gold); border-right: 4px solid var(--primary-gold); }
+        .location-option:hover { background: rgba(255, 204, 0, 0.08); border-color: var(--bright-gold); transform: translateX(-5px); box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2); }
 
-        .contact-option {
-            color: #a8e6cf;
-            border-right: 4px solid #10b981;
-        }
-        .contact-option:hover {
-            background: rgba(16, 185, 129, 0.08);
-            border-color: #34d399;
-            transform: translateX(-5px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-        }
-       footer {
+        .contact-option { color: #a8e6cf; border-right: 4px solid #10b981; }
+        .contact-option:hover { background: rgba(16, 185, 129, 0.08); border-color: #34d399; transform: translateX(-5px); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); }
+       
+        footer {
             padding: 5px;
             text-align: center;
             color: #bfae9c;
@@ -405,20 +366,53 @@
             background: rgba(26, 17, 11, 0.6);
             z-index: 1;
         }
-        /* التجاوب للموبايل والأجهزة اللوحية */
+
+        /* ========================================================
+           التجاوب الكامل للموبايل والأجهزة اللوحية (Responsive)
+           ======================================================== */
         @media (max-width: 1000px) {
-            body { padding: 4px; }
-            .page-wrapper { grid-template-columns: 1fr; height: auto; min-height: calc(100vh - 8px); border-radius: 8px; }
-            .sidebar-brand { height: 40vh; padding: 30px; border-left: none; border-bottom: 2px solid rgba(198, 147, 75, 0.3); }
-            .sidebar-brand h1 { font-size: 3.5rem; }
-            .scrollable-content { padding: 30px; overflow-y: visible; height: auto; }
-            .top-header-bar { padding: 15px 20px; flex-direction: column; gap: 15px; text-align: center; }
+            body { 
+                padding: 4px; 
+                overflow-y: auto; /* تفعيل التمرير الكامل على الهواتف */
+                height: auto;
+            }
+            .page-wrapper { 
+                grid-template-columns: 1fr; 
+                height: auto; 
+                min-height: calc(100vh - 8px); 
+                border-radius: 8px; 
+            }
+            
+            /* تعديل السايدبار في الموبايل لمنع المط وتشغيل الأنيميشن بشكل سليم رايح جاي */
+            .sidebar-brand { 
+                height: 42vh; 
+                padding: 30px; 
+                border-left: none; 
+                border-bottom: 2px solid rgba(198, 147, 75, 0.3); 
+                
+                /* الحفاظ على أبعاد الصورة الأصلية وحمايتها من المط */
+                background-size: cover; 
+                background-repeat: no-repeat;
+                background-position: center center;
+                
+                /* تفعيل أنيميشن مخصص وناعم للموبايل (يروح ويجي أفقي بنسب مرنة) */
+                animation: moveBackgroundMobile 20s ease-in-out infinite alternate;
+            }
+
+            @keyframes moveBackgroundMobile {
+                0% { background-position: 20% center; }
+                100% { background-position: 80% center; }
+            }
+
+            .sidebar-brand h1 { font-size: 3.2rem; }
+            .main-content { overflow: visible; height: auto; }
+            .scrollable-content { padding: 25px; overflow-y: visible; height: auto; }
+            .top-header-bar { padding: 15px 20px;width: 99%; flex-direction: column; gap: 15px; text-align: center; }
             .header-actions { flex-direction: column; gap: 10px; width: 100%; }
             .contact-btn { width: 100%; text-align: center; }
             .service-card { aspect-ratio: auto; height: 180px; padding: 0 25px; border-radius: 6px; }
             .card-info-text { max-width: 80%; }
             .card-icon { font-size: 3rem; }
-            body { overflow-y: auto; }
         }
     </style>
 </head>
@@ -534,14 +528,13 @@
                 </section>
             </div>
             
-    <footer>
-        ® Copyright © 2026 Techno Science 
-    </footer>
+            <footer>
+                ® Copyright © 2026 Techno Science 
+            </footer>
         </main>
     </div>
 
     <script>
-        // دالة موحدة ذكية للتحكم في فتح وإغلاق أي قائمة منسدلة عبر الـ ID الخاص بها مع الحفاظ على الأنيميشن المتناسق
         function toggleMenu(menuId) {
             const menu = document.getElementById(menuId);
             if (menu.style.display === 'flex') {
